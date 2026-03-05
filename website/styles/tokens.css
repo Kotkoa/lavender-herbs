@@ -1,0 +1,27 @@
+:root {
+  --tone-50:  #f3f0ff;
+  --tone-100: #e5dbff;
+  --tone-200: #d0bfff;
+  --tone-300: #b197fc;
+  --tone-400: #9775fa;
+  --tone-500: #845ef7;
+  --tone-600: #7950f2;
+  --tone-700: #7048e8;
+  --tone-800: #6741d9;
+  --tone-900: #5f3dc4;
+  --tone-footer: #4c2fa8;
+
+  --text-on-light:    var(--tone-900);
+  --text-on-dark:     var(--tone-50);
+  --text-muted-light: var(--tone-500);
+  --text-muted-dark:  var(--tone-200);
+
+  --rule-light: rgba(95, 61, 196, 0.12);
+  --rule-dark:  rgba(243, 240, 255, 0.14);
+
+  --f:        "Inter", system-ui, sans-serif;
+  --ease:     cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-h:    68px;
+  --mx:       1140px;
+}

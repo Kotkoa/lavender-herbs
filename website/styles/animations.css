@@ -1,0 +1,52 @@
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleStalk {
+  0%, 100% {
+    transform: scaleY(0.25) rotate(-1deg);
+  }
+  50% {
+    transform: scaleY(1) rotate(1deg);
+  }
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.2;
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scaleY(1.3);
+    opacity: 1;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
