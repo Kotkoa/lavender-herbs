@@ -1,0 +1,113 @@
+{
+  "source_file": "/Users/kotkoa/dev/lavender project/distillation_analytics/sheet2.csv",
+  "raw_kg": 2340.0,
+  "oil_l": 34.0,
+  "oil_kg": 29.24,
+  "hydrolat_l": 540.0,
+  "theoretical_oil_l": 31.7,
+  "distillations": 23.0,
+  "workdays": 15,
+  "gas_cylinders": 14.5,
+  "water_m3": 17.0,
+  "yield_pct_reported": 1.5,
+  "loss_pct_reported": 40.0,
+  "capex_items": [
+    {
+      "name": "Дистилятор",
+      "rub": 57500.0
+    },
+    {
+      "name": "Горелка",
+      "rub": 13500.0
+    },
+    {
+      "name": "Доработка дистиллятора",
+      "rub": 19460.0
+    },
+    {
+      "name": "Лабораторное оборудование",
+      "rub": 5800.0
+    },
+    {
+      "name": "Болер (10%)",
+      "rub": 0.0
+    },
+    {
+      "name": "Кап стройка (и рабочая сила и материалы)",
+      "rub": 0.0
+    },
+    {
+      "name": "Логистика",
+      "rub": 8700.0
+    }
+  ],
+  "opex_items": [
+    {
+      "name": "Цена срезки",
+      "rub": 52500.0
+    },
+    {
+      "name": "Флаконы масла и гидролата (розница)",
+      "rub": 11410.0
+    },
+    {
+      "name": "Канистры для масла и гидролата (опт)",
+      "rub": 16352.0
+    },
+    {
+      "name": "Газ, электричество, лед и аренда",
+      "rub": 21837.0
+    },
+    {
+      "name": "Помошник операторатора дистиллятора",
+      "rub": 10000.0
+    },
+    {
+      "name": "рабочая сила по срезке",
+      "rub": 23625.0
+    },
+    {
+      "name": "ГСМ на трактор",
+      "rub": 5540.0
+    },
+    {
+      "name": "Технолог и менеджер проекта",
+      "rub": 48000.0
+    },
+    {
+      "name": "Непредвиденные расходы",
+      "rub": 0.0
+    }
+  ],
+  "capex_total_calc": 104960.0,
+  "opex_total_calc": 189264.0,
+  "capex_total_stated": 104960.0,
+  "opex_total_stated": 177854.0,
+  "total_cost_stated": 282814.0,
+  "derived": {
+    "oil_density_kg_per_l": 0.86,
+    "oil_kg_per_raw_kg": 0.012495726495726495,
+    "oil_l_per_raw_kg": 0.01452991452991453,
+    "raw_kg_per_oil_kg": 80.02735978112176,
+    "raw_kg_per_oil_l": 68.82352941176471,
+    "hydrolat_l_per_raw_kg": 0.23076923076923078,
+    "hydrolat_l_per_oil_l": 15.882352941176471,
+    "distillations_per_day": 1.5333333333333334,
+    "raw_kg_per_dist": 101.73913043478261,
+    "oil_kg_per_dist": 1.2713043478260868,
+    "oil_l_per_dist": 1.4782608695652173,
+    "hydrolat_l_per_dist": 23.47826086956522,
+    "gas_cyl_per_dist": 0.6304347826086957,
+    "water_m3_per_dist": 0.7391304347826086,
+    "opex_rub_per_raw_kg": 76.0059829059829,
+    "total_rub_per_raw_kg": 120.86068376068376,
+    "opex_rub_per_oil_kg_all_to_oil": 6082.558139534884,
+    "total_rub_per_oil_kg_all_to_oil": 9672.16142270862,
+    "opex_rub_per_oil_l_all_to_oil": 5231.0,
+    "total_rub_per_oil_l_all_to_oil": 8318.058823529413,
+    "opex_rub_per_oil_l_split50": 2615.5,
+    "total_rub_per_oil_l_split50": 4159.029411764706,
+    "opex_rub_per_hydrolat_l_split50": 164.67962962962963,
+    "total_rub_per_hydrolat_l_split50": 261.8648148148148
+  }
+}
