@@ -136,7 +136,7 @@ export default function HeroSection() {
         </p>
 
         <div
-          className="flex flex-wrap gap-4 mb-16"
+          className="flex flex-wrap gap-4 mb-10"
           style={{ animation: "fadeUp 0.85s var(--ease-out) 1.3s both" }}
         >
           <Button variant="solid" href="/products">
@@ -149,7 +149,7 @@ export default function HeroSection() {
 
         <div
           ref={statsRef}
-          className="flex flex-wrap gap-12 pb-16"
+          className="flex flex-wrap gap-12 pb-10"
           style={{ animation: "fadeUp 0.85s var(--ease-out) 1.4s both" }}
         >
           {stats.map((s) => (

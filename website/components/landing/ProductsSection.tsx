@@ -54,7 +54,7 @@ export default function ProductsSection() {
     <section
       style={{
         background: "linear-gradient(180deg, var(--tone-100) 0%, var(--tone-200) 100%)",
-        padding: "100px 0",
+        padding: "80px 0",
       }}
     >
       <div
@@ -63,7 +63,7 @@ export default function ProductsSection() {
       >
         <SectionLabel>Our Products</SectionLabel>
         <h2
-          className="mb-12 font-bold"
+          className="mb-8 font-bold"
           style={{
             fontSize: "clamp(2rem, 4vw, 3rem)",
             color: "var(--tone-900)",

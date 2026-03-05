@@ -47,7 +47,7 @@ export default function Footer() {
         className="mx-auto"
       >
         <div className="flex flex-col md:flex-row gap-12 md:gap-8 pb-12" style={{ borderBottom: "1px solid rgba(243,240,255,0.1)" }}>
-          <div className="md:w-[240px] shrink-0">
+          <div className="md:w-60 shrink-0">
             <div className="text-lg font-bold mb-3" style={{ color: "var(--tone-50)" }}>
               <span style={{ color: "var(--tone-400)" }}>L</span>avender·Herbs
             </div>
@@ -58,7 +58,7 @@ export default function Footer() {
               {["IG", "TG", "WA"].map((icon) => (
                 <div
                   key={icon}
-                  className="flex items-center justify-center text-xs font-semibold rounded-[8px]"
+                  className="flex items-center justify-center text-xs font-semibold rounded-lg"
                   style={{
                     width: 34,
                     height: 34,

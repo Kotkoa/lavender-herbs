@@ -1,40 +1,42 @@
-"use client";
+'use client'
 
-import { useEffect, useRef } from "react";
-import SectionLabel from "@/components/layout/SectionLabel";
+import { useEffect, useRef } from 'react'
+import SectionLabel from '@/components/layout/SectionLabel'
 
 export default function AboutSection() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const els = ref.current?.querySelectorAll(".reveal");
-    if (!els) return;
+    const els = ref.current?.querySelectorAll('.reveal')
+    if (!els) return
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            el.style.transitionDelay = el.dataset.delay ? `${el.dataset.delay}ms` : "0ms";
-            el.classList.add("visible");
+            const el = entry.target as HTMLElement
+            el.style.transitionDelay = el.dataset.delay
+              ? `${el.dataset.delay}ms`
+              : '0ms'
+            el.classList.add('visible')
           }
-        });
+        })
       },
       { threshold: 0.12 }
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+    )
+    els.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section
       style={{
-        background: "var(--tone-300)",
-        padding: "100px 0",
+        background: 'var(--tone-300)',
+        padding: '80px 0',
       }}
     >
       <div
         ref={ref}
-        style={{ maxWidth: "var(--mx)", padding: "0 36px" }}
+        style={{ maxWidth: 'var(--mx)', padding: '0 36px' }}
         className="mx-auto"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -46,12 +48,12 @@ export default function AboutSection() {
               className="reveal mb-6 font-bold"
               data-delay="80"
               style={{
-                fontSize: "clamp(2rem, 4vw, 3rem)",
-                color: "var(--tone-900)",
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                color: 'var(--tone-900)',
               }}
             >
-              A small farm.{" "}
-              <em style={{ fontStyle: "italic", fontWeight: 300 }}>
+              A small farm.{' '}
+              <em style={{ fontStyle: 'italic', fontWeight: 300 }}>
                 An obsessive craft.
               </em>
             </h2>
@@ -59,17 +61,18 @@ export default function AboutSection() {
               className="reveal mb-8 text-2xl italic font-light leading-snug"
               data-delay="160"
               style={{
-                color: "var(--tone-800)",
-                borderLeft: "3px solid var(--tone-600)",
+                color: 'var(--tone-800)',
+                borderLeft: '3px solid var(--tone-600)',
                 paddingLeft: 24,
               }}
             >
-              "The soil, the sun, the silence — everything ends up in the bottle."
+              &ldquo;The soil, the sun, the silence — everything ends up in the
+              bottle.&rdquo;
             </blockquote>
             <p
               className="reveal text-base leading-relaxed mb-4"
               data-delay="240"
-              style={{ color: "var(--tone-900)" }}
+              style={{ color: 'var(--tone-900)' }}
             >
               We grow English lavender on a 1,000 m² plot. Every step — from
               selecting cuttings in spring to distilling the harvest — happens
@@ -78,11 +81,11 @@ export default function AboutSection() {
             <p
               className="reveal text-base leading-relaxed"
               data-delay="320"
-              style={{ color: "var(--tone-800)" }}
+              style={{ color: 'var(--tone-800)' }}
             >
-              Our focus is on{" "}
-              <em>Lavandula angustifolia</em> and lavandin hybrids, grown
-              without synthetic pesticides, harvested by hand at peak bloom.
+              Our focus is on <em>Lavandula angustifolia</em> and lavandin
+              hybrids, grown without synthetic pesticides, harvested by hand at
+              peak bloom.
             </p>
           </div>
 
@@ -90,21 +93,21 @@ export default function AboutSection() {
             className="reveal rounded-2xl overflow-hidden"
             data-delay="200"
             style={{
-              background: "rgba(95,61,196,0.15)",
-              aspectRatio: "4/5",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: "1px solid rgba(177,151,252,0.3)",
+              background: 'rgba(95,61,196,0.15)',
+              aspectRatio: '4/5',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid rgba(177,151,252,0.3)',
             }}
           >
             <p
               className="text-center text-sm"
-              style={{ color: "var(--tone-700)" }}
+              style={{ color: 'var(--tone-700)' }}
             >
               Photo from @lavender.herbs
               <br />
-              <span style={{ fontSize: 11, color: "var(--tone-600)" }}>
+              <span style={{ fontSize: 11, color: 'var(--tone-600)' }}>
                 Replace in Phase 6
               </span>
             </p>
@@ -112,5 +115,5 @@ export default function AboutSection() {
         </div>
       </div>
     </section>
-  );
+  )
 }

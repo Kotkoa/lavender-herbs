@@ -51,7 +51,7 @@ export default function TestimonialsSection() {
     <section
       style={{
         background: "linear-gradient(180deg, var(--tone-500) 0%, var(--tone-600) 100%)",
-        padding: "100px 0",
+        padding: "80px 0",
       }}
     >
       <div
@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
       >
         <SectionLabel light>What people say</SectionLabel>
         <h2
-          className="mb-12 font-bold"
+          className="mb-8 font-bold"
           style={{
             fontSize: "clamp(2rem, 4vw, 3rem)",
             color: "var(--tone-50)",

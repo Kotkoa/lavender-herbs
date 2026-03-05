@@ -69,7 +69,7 @@ function ProcessStep({
   return (
     <div
       ref={ref}
-      className="reveal grid gap-6 py-10"
+      className="reveal grid gap-6 py-6"
       style={{
         gridTemplateColumns: "100px 1fr",
         borderBottom: "1px solid rgba(177,151,252,0.25)",
@@ -123,7 +123,7 @@ export default function ProcessSection() {
     <section
       style={{
         background: "linear-gradient(180deg, var(--tone-200) 0%, var(--tone-500) 100%)",
-        padding: "100px 0",
+        padding: "80px 0",
       }}
     >
       <div
@@ -132,7 +132,7 @@ export default function ProcessSection() {
       >
         <SectionLabel light>How it&apos;s made</SectionLabel>
         <h2
-          className="mb-12 font-bold"
+          className="mb-8 font-bold"
           style={{
             fontSize: "clamp(2rem, 4vw, 3rem)",
             color: "var(--tone-900)",

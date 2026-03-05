@@ -10,7 +10,7 @@ export default function CTASection() {
     <section
       style={{
         background: "var(--tone-900)",
-        padding: "120px 0",
+        padding: "96px 0",
         position: "relative",
         overflow: "hidden",
       }}
