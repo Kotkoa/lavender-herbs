@@ -33,6 +33,8 @@ jobs:
       - name: Build
         working-directory: website
         run: yarn build
+        env:
+          NEXT_PUBLIC_BASE_PATH: /lavender-herbs
 
       - uses: actions/upload-pages-artifact@v3
         with:
