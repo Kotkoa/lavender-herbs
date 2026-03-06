@@ -1,34 +1,47 @@
-"use client";
+'use client'
 
-import { useEffect, useRef, useState } from "react";
-import Button from "@/components/ui/Button";
+import { useEffect, useRef, useState } from 'react'
+import Button from '@/components/ui/Button'
 
 const stats = [
-  { value: 1000, suffix: " m²", label: "Plot size", decimals: 0 },
-  { value: 1.25, suffix: "%", label: "Oil yield", decimals: 2 },
-  { value: 3, suffix: "", label: "Lavender varieties", decimals: 0 },
-];
+  { value: 1000, suffix: ' m²', label: 'Lavender field', decimals: 0 },
+  { value: 100, suffix: '%', label: 'Pure lavender', decimals: 0 },
+  { value: 0, suffix: '', label: 'Synthetic pesticides', decimals: 0 },
+]
 
 function useCounter(target: number, duration = 1800, start = false) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
   useEffect(() => {
-    if (!start) return;
-    let startTime: number;
+    if (!start) return
+    let startTime: number
     const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      setCount(parseFloat((target * ease).toFixed(target < 10 ? 2 : 0)));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [start, target, duration]);
-  return count;
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+      const ease = 1 - Math.pow(1 - progress, 3)
+      setCount(parseFloat((target * ease).toFixed(target < 10 ? 2 : 0)))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [start, target, duration])
+  return count
 }
 
-function StatCounter({ value, suffix, label, start, decimals }: { value: number; suffix: string; label: string; start: boolean; decimals: number }) {
-  const count = useCounter(value, 1800, start);
-  const formatted = decimals > 0 ? count.toFixed(decimals) : Math.round(count).toLocaleString();
+function StatCounter({
+  value,
+  suffix,
+  label,
+  start,
+  decimals,
+}: {
+  value: number
+  suffix: string
+  label: string
+  start: boolean
+  decimals: number
+}) {
+  const count = useCounter(value, 1800, start)
+  const formatted =
+    decimals > 0 ? count.toFixed(decimals) : Math.round(count).toLocaleString()
   return (
     <div className="text-center">
       <div className="text-4xl font-bold tabular-nums text-tone-900">
@@ -39,21 +52,23 @@ function StatCounter({ value, suffix, label, start, decimals }: { value: number;
         {label}
       </div>
     </div>
-  );
+  )
 }
 
 export default function HeroSection() {
-  const [countersStarted, setCountersStarted] = useState(false);
-  const statsRef = useRef<HTMLDivElement>(null);
+  const [countersStarted, setCountersStarted] = useState(false)
+  const statsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setCountersStarted(true); },
+      ([entry]) => {
+        if (entry.isIntersecting) setCountersStarted(true)
+      },
       { threshold: 0.3 }
-    );
-    if (statsRef.current) observer.observe(statsRef.current);
-    return () => observer.disconnect();
-  }, []);
+    )
+    if (statsRef.current) observer.observe(statsRef.current)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section className="bg-tone-50 pt-[calc(var(--nav-h)+80px)] pb-0 min-h-screen flex flex-col">
@@ -98,5 +113,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-  );
+  )
 }

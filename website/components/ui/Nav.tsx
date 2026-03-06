@@ -50,8 +50,8 @@ export default function Nav() {
           ))}
         </nav>
 
-        <Button variant="pill-outline" href="/contact">
-          Order
+        <Button variant="pill-outline" href="/products">
+          Shop Lavender
         </Button>
       </div>
     </header>
