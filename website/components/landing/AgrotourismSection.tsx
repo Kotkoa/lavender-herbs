@@ -95,8 +95,8 @@ export default function AgrotourismSection() {
             <div className="reveal mt-10" data-delay="500">
               <Button
                 href="/visit"
-                variant="outline"
-                className="rounded-full border-tone-200 text-tone-100 hover:bg-tone-200 hover:text-tone-900"
+                variant="pill-outline"
+                className="border-tone-200 text-tone-100 hover:bg-tone-200 hover:text-tone-900"
               >
                 Plan a visit
               </Button>
