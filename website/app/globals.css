@@ -22,11 +22,6 @@
 
   --spacing-nav: var(--nav-h);
 
-  --font-size-hero: clamp(3.2rem, 8.5vw, 7.5rem);
-  --font-size-section: clamp(2rem, 4vw, 3rem);
-  --font-size-section-sm: clamp(1.75rem, 3.5vw, 2.5rem);
-  --font-size-cta: clamp(2.4rem, 5.5vw, 4.5rem);
-  --font-size-data: clamp(1.5rem, 3vw, 2rem);
 }
 
 @utility container-mx {
@@ -47,6 +42,26 @@
   background: rgba(243, 240, 255, 0.08);
   border: 1px solid rgba(177, 151, 252, 0.25);
   color: var(--tone-50);
+}
+
+@utility text-hero {
+  font-size: clamp(3.2rem, 8.5vw, 7.5rem);
+}
+
+@utility text-section {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+@utility text-section-sm {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+@utility text-cta {
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+}
+
+@utility text-data {
+  font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
 @utility data-card-dark {

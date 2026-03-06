@@ -35,7 +35,7 @@ function StatCounter({ value, suffix, label, start, decimals }: { value: number;
         {formatted}
         {suffix}
       </div>
-      <div className="text-sm mt-1 text-muted-light">
+      <div className="text-[10px] mt-2 uppercase tracking-[0.15em] text-muted-light">
         {label}
       </div>
     </div>
@@ -57,7 +57,7 @@ export default function HeroSection() {
 
   return (
     <section className="bg-tone-50 pt-[calc(var(--nav-h)+80px)] pb-0 min-h-screen flex flex-col">
-      <div className="container-mx w-full flex-1 flex flex-col justify-center">
+      <div className="container-mx w-full flex-1 flex flex-col items-center justify-center text-center">
         <div className="mb-4 text-xs font-bold uppercase tracking-[0.22em] text-tone-400 animate-fade-up-d1">
           Lavender Farm
         </div>
@@ -79,7 +79,7 @@ export default function HeroSection() {
           and dried flowers — directly from our farm to you.
         </p>
 
-        <div className="flex flex-wrap gap-4 mb-10 animate-fade-up-d13">
+        <div className="flex flex-wrap justify-center gap-4 mb-10 animate-fade-up-d13">
           <Button variant="solid" href="/products">
             Shop Lavender
           </Button>
@@ -90,14 +90,13 @@ export default function HeroSection() {
 
         <div
           ref={statsRef}
-          className="flex flex-wrap gap-12 pb-10 animate-fade-up-d14"
+          className="flex flex-wrap justify-center gap-12 pb-10 animate-fade-up-d14"
         >
           {stats.map((s) => (
             <StatCounter key={s.label} {...s} start={countersStarted} />
           ))}
         </div>
       </div>
-
     </section>
   );
 }
