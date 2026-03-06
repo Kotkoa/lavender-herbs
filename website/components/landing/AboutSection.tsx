@@ -52,9 +52,9 @@ export default function AboutSection() {
                 color: 'var(--tone-900)',
               }}
             >
-              A small farm.{' '}
+              A small lavender farm{' '}
               <em style={{ fontStyle: 'italic', fontWeight: 300 }}>
-                An obsessive craft.
+                built with care.
               </em>
             </h2>
             <blockquote
@@ -66,26 +66,25 @@ export default function AboutSection() {
                 paddingLeft: 24,
               }}
             >
-              &ldquo;The soil, the sun, the silence — everything ends up in the
-              bottle.&rdquo;
+              &ldquo;The soil, the sun and the slow rhythm of nature shape the
+              aroma you experience.&rdquo;
             </blockquote>
             <p
               className="reveal text-base leading-relaxed mb-4"
               data-delay="240"
               style={{ color: 'var(--tone-900)' }}
             >
-              We grow English lavender on a 1,000 m² plot. Every step — from
-              selecting cuttings in spring to distilling the harvest — happens
-              on site. No intermediaries. No shortcuts.
+              Every bottle begins in our field. We grow English lavender on a
+              small 1,000 m² farm and handle every step ourselves — from
+              planting to distillation.
             </p>
             <p
               className="reveal text-base leading-relaxed"
               data-delay="320"
               style={{ color: 'var(--tone-800)' }}
             >
-              Our focus is on <em>Lavandula angustifolia</em> and lavandin
-              hybrids, grown without synthetic pesticides, harvested by hand at
-              peak bloom.
+              No shortcuts. No intermediaries. Just lavender, carefully grown
+              and crafted.
             </p>
           </div>
 

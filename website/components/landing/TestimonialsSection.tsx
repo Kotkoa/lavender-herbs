@@ -7,19 +7,19 @@ import SectionLabel from "@/components/layout/SectionLabel";
 const testimonials = [
   {
     quote:
-      "The essential oil quality is exceptional — clean, true-to-plant aroma. Already reordering.",
+      "The essential oil quality is exceptional — clean, true lavender aroma. Already reordering.",
     author: "Anna M.",
     role: "Aromatherapist",
   },
   {
     quote:
-      "Beautiful dried lavender bunches for my wedding. Arrived perfectly packed, lasted for months.",
+      "Beautiful dried lavender bunches for my wedding. Arrived perfectly packed and lasted for months.",
     author: "Irina K.",
     role: "Bride",
   },
   {
     quote:
-      "As a florist, the consistent quality and seasonal availability makes them my go-to supplier.",
+      "As a florist, the consistent quality and seasonal availability make them my go-to supplier.",
     author: "Elena V.",
     role: "Florist",
   },
@@ -66,7 +66,7 @@ export default function TestimonialsSection() {
             color: "var(--tone-50)",
           }}
         >
-          Grown for those who notice.
+          Loved by people who appreciate real lavender.
         </h2>
 
         <div

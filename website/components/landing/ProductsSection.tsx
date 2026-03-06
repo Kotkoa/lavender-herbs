@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import GlassCard from "@/components/ui/GlassCard";
-import LavenderStalks from "@/components/ui/LavenderStalks";
 import SectionLabel from "@/components/layout/SectionLabel";
 import Button from "@/components/ui/Button";
 
@@ -10,19 +9,22 @@ const products = [
   {
     title: "Essential Oil",
     description:
-      "100% pure Lavandula angustifolia steam-distilled essential oil. Yield: 12.5 g/kg raw material. Available in 5 ml, 10 ml, 30 ml.",
+      "Pure lavender essential oil, steam-distilled in small batches on our farm. Perfect for relaxation, aromatherapy and natural home rituals.",
+    meta: "Available in 5 ml, 10 ml and 30 ml",
     href: "/products#oil",
   },
   {
-    title: "Hydrosol",
+    title: "Lavender Hydrosol",
     description:
-      "Aromatic lavender water — a gentle by-product of distillation. Versatile for skin, room and linen. Available in 50 ml, 100 ml, 250 ml.",
+      "Light aromatic lavender water created during distillation. Refreshing for skin, linen and calming home atmosphere.",
+    meta: "Available in 50 ml, 100 ml and 250 ml",
     href: "/products#hydrosol",
   },
   {
-    title: "Dried Flowers",
+    title: "Dried Lavender",
     description:
-      "Bunches, buds and loose stems for florists, home décor and wedding confetti. Seasonal availability June–August.",
+      "Naturally dried lavender bunches and buds. Beautiful for home décor, bouquets, weddings and creative projects.",
+    meta: "Available seasonally from June to August",
     href: "/products#dried-flowers",
   },
 ];
@@ -70,7 +72,7 @@ export default function ProductsSection() {
             maxWidth: 540,
           }}
         >
-          From the field, direct to you.
+          Bring the calm of lavender into your everyday life.
         </h2>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -81,9 +83,6 @@ export default function ProductsSection() {
               data-delay={i * 80}
             >
               <GlassCard variant="feature" className="h-full flex flex-col">
-                <div className="mb-4">
-                  <LavenderStalks n={5} opacity={1} className="h-8" />
-                </div>
                 <h3
                   className="text-xl font-bold mb-3"
                   style={{ color: "var(--tone-900)" }}
@@ -91,10 +90,13 @@ export default function ProductsSection() {
                   {product.title}
                 </h3>
                 <p
-                  className="text-sm leading-relaxed flex-1 mb-6"
+                  className="text-sm leading-relaxed flex-1 mb-3"
                   style={{ color: "var(--text-muted-light)" }}
                 >
                   {product.description}
+                </p>
+                <p className="text-xs mb-6" style={{ color: "var(--tone-400)" }}>
+                  {product.meta}
                 </p>
                 <Button variant="outline" href={product.href} className="self-start text-sm px-4 py-2">
                   Learn more

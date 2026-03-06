@@ -2,12 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Button from "@/components/ui/Button";
-import LavenderStalks from "@/components/ui/LavenderStalks";
 
 const stats = [
-  { value: 1000, suffix: " m²", label: "Plot size" },
-  { value: 1.25, suffix: "%", label: "Oil yield" },
-  { value: 3, suffix: "", label: "Varieties" },
+  { value: 1000, suffix: " m²", label: "Plot size", decimals: 0 },
+  { value: 1.25, suffix: "%", label: "Oil yield", decimals: 2 },
+  { value: 3, suffix: "", label: "Lavender varieties", decimals: 0 },
 ];
 
 function useCounter(target: number, duration = 1800, start = false) {
@@ -27,15 +26,16 @@ function useCounter(target: number, duration = 1800, start = false) {
   return count;
 }
 
-function StatCounter({ value, suffix, label, start }: { value: number; suffix: string; label: string; start: boolean }) {
+function StatCounter({ value, suffix, label, start, decimals }: { value: number; suffix: string; label: string; start: boolean; decimals: number }) {
   const count = useCounter(value, 1800, start);
+  const formatted = decimals > 0 ? count.toFixed(decimals) : Math.round(count).toLocaleString();
   return (
     <div className="text-center">
       <div
         className="text-4xl font-bold tabular-nums"
         style={{ color: "var(--tone-900)" }}
       >
-        {value < 10 ? count.toFixed(2) : Math.round(count).toLocaleString()}
+        {formatted}
         {suffix}
       </div>
       <div className="text-sm mt-1" style={{ color: "var(--text-muted-light)" }}>
@@ -94,12 +94,12 @@ export default function HeroSection() {
           <span
             style={{
               display: "block",
-              color: "var(--tone-100)",
+              color: "var(--tone-300)",
               fontWeight: 300,
               animation: "fadeUp 0.85s var(--ease-out) 0.3s both",
             }}
           >
-            Pure lavender.
+            Experience real lavender.
           </span>
           <span
             style={{
@@ -109,7 +109,7 @@ export default function HeroSection() {
               animation: "fadeUp 0.85s var(--ease-out) 0.6s both",
             }}
           >
-            From field to bottle.
+            Pure aroma from our field
           </span>
           <span
             style={{
@@ -119,7 +119,7 @@ export default function HeroSection() {
               animation: "fadeUp 0.85s var(--ease-out) 0.9s both",
             }}
           >
-            Grown with care.
+            to your home.
           </span>
         </h1>
 
@@ -130,9 +130,8 @@ export default function HeroSection() {
             animation: "fadeUp 0.85s var(--ease-out) 1.1s both",
           }}
         >
-          We cultivate{" "}
-          <em>Lavandula angustifolia</em> and lavandin for essential oil,
-          hydrosol, dried flowers and agrotourism.
+          We grow premium lavender and craft small-batch essential oil, hydrosol
+          and dried flowers — directly from our farm to you.
         </p>
 
         <div
@@ -140,7 +139,7 @@ export default function HeroSection() {
           style={{ animation: "fadeUp 0.85s var(--ease-out) 1.3s both" }}
         >
           <Button variant="solid" href="/products">
-            Explore Products
+            Shop Lavender
           </Button>
           <Button variant="outline" href="/visit">
             Visit the Farm
@@ -158,19 +157,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="w-full" style={{ animation: "fadeUp 0.85s var(--ease-out) 1.4s both" }}>
-        <LavenderStalks n={64} opacity={0.18} className="w-full h-16" />
-      </div>
-
-      <div
-        className="flex flex-col items-center pb-6 pt-2 gap-1"
-        style={{ animation: "scrollPulse 2s ease-in-out infinite" }}
-      >
-        <div className="w-px h-8" style={{ background: "var(--tone-300)" }} />
-        <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
-          <path d="M1 1l5 5 5-5" stroke="var(--tone-400)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </div>
     </section>
   );
 }

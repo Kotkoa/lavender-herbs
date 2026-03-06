@@ -1,7 +1,6 @@
 import PageHero from '@/components/layout/PageHero'
 import GlassCard from '@/components/ui/GlassCard'
 import SectionLabel from '@/components/layout/SectionLabel'
-import FloristForm from '@/components/ui/FloristForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

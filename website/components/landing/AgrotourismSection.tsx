@@ -9,21 +9,21 @@ const activities = [
     icon: '📸',
     title: 'Photo Sessions',
     description:
-      'Book a private session in the blooming field. Peak season: June–July.',
+      'Private photo shoots in the blooming lavender field. Peak season June–July.',
     href: '/visit#photo',
   },
   {
     icon: '🌿',
     title: 'Farm Tour',
     description:
-      '1-hour guided walk through cultivation and the distillery. Groups welcome.',
+      'Guided walk through the lavender field and distillation process.',
     href: '/visit#tour',
   },
   {
     icon: '✂️',
     title: 'U-Pick',
     description:
-      'Cut your own lavender bouquet. Available during harvest season.',
+      'Harvest your own lavender bouquet during the blooming season.',
     href: '/visit#upick',
   },
 ]
@@ -78,15 +78,15 @@ export default function AgrotourismSection() {
                 color: 'var(--tone-50)',
               }}
             >
-              Walk through the field.
+              Experience lavender in bloom.
             </h2>
             <p
               className="reveal mb-10 text-base leading-relaxed"
               data-delay="160"
               style={{ color: 'var(--tone-200)' }}
             >
-              Come during bloom season and experience the farm firsthand — the
-              scent, the colour, the calm. Open June through August.
+              Visit our lavender field during the blooming season and enjoy the
+              scent, color and calm of the countryside. Open June — August.
             </p>
 
             <div className="flex flex-col gap-4">

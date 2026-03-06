@@ -8,7 +8,7 @@ const steps = [
     numeral: "I",
     eyebrow: "Spring",
     title: "Planting",
-    body: "We select Lavandula angustifolia cuttings in spring. Each plant spaced 60 cm apart for optimal airflow and essential oil concentration.",
+    body: "Lavender cuttings are planted in spring, giving every plant space to grow strong and aromatic.",
     accent: "var(--tone-500)",
     text: "var(--tone-900)",
   },
@@ -16,7 +16,7 @@ const steps = [
     numeral: "II",
     eyebrow: "Summer",
     title: "Care",
-    body: "No synthetic pesticides. We rely on soil health, companion planting, and timed irrigation for robust aromatic yield.",
+    body: "Our lavender grows without synthetic pesticides, relying on healthy soil, sunlight and careful irrigation.",
     accent: "var(--tone-600)",
     text: "var(--tone-900)",
   },
@@ -24,7 +24,7 @@ const steps = [
     numeral: "III",
     eyebrow: "July",
     title: "Harvest",
-    body: "Flowers cut at 50% bloom — peak oil content. Harvested by hand in early morning when volatile compounds are at their highest.",
+    body: "Lavender is harvested by hand at peak bloom when the aroma and essential oil concentration are at their highest.",
     accent: "var(--tone-200)",
     text: "var(--tone-50)",
   },
@@ -32,7 +32,7 @@ const steps = [
     numeral: "IV",
     eyebrow: "Same day",
     title: "Distillation",
-    body: "Steam distillation: fresh biomass loaded into the still, steam carries volatile compounds, condensation separates oil from hydrosol. ~1.25% yield by mass.",
+    body: "Fresh lavender is distilled the same day to capture its pure aroma in essential oil and hydrosol.",
     accent: "var(--tone-100)",
     text: "var(--tone-50)",
   },
@@ -138,7 +138,7 @@ export default function ProcessSection() {
             color: "var(--tone-900)",
           }}
         >
-          From seed to essence.
+          From our field to your bottle.
         </h2>
         <div>
           {steps.map((step, i) => (

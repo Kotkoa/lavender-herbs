@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import LavenderStalks from "@/components/ui/LavenderStalks";
 
 export default function CTASection() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -63,13 +62,13 @@ export default function CTASection() {
                 lineHeight: 1.1,
               }}
             >
-              Stay in bloom.
+              Stay connected with the farm.
             </h2>
             <p
               className="mb-8 text-base leading-relaxed"
               style={{ color: "var(--tone-400)" }}
             >
-              Get seasonal updates, harvest dates, and early access to new products.
+              Get updates about blooming season, harvest dates and new lavender products.
             </p>
 
             <form
@@ -140,7 +139,6 @@ export default function CTASection() {
                 }}
               />
             ))}
-            <LavenderStalks n={12} opacity={1} className="h-24 relative z-10" />
           </div>
         </div>
       </div>

@@ -49,10 +49,10 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row gap-12 md:gap-8 pb-12" style={{ borderBottom: "1px solid rgba(243,240,255,0.1)" }}>
           <div className="md:w-60 shrink-0">
             <div className="text-lg font-bold mb-3" style={{ color: "var(--tone-50)" }}>
-              <span style={{ color: "var(--tone-400)" }}>L</span>avender·Herbs
+              <span style={{ color: "var(--tone-400)" }}>L</span>avender Herbs
             </div>
             <p className="text-sm leading-relaxed" style={{ color: "var(--tone-200)" }}>
-              Pure lavender from field to bottle. Essential oil, hydrosol, dried flowers and agrotourism.
+              Real lavender grown and crafted on our small farm. Essential oil, hydrosol, dried flowers and farm experiences.
             </p>
             <div className="flex gap-3 mt-6">
               {["IG", "TG", "WA"].map((icon) => (
