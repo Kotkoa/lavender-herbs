@@ -32,7 +32,7 @@ const steps = [
     numeral: 'II',
     eyebrow: 'Summer',
     title: 'Care',
-    body: 'Our lavender grows without synthetic pesticides, relying on healthy soil, sunlight, and careful irrigation.',
+    body: 'Our lavender is grown without synthetic pesticides, supported by healthy soil, sunlight, and careful irrigation.',
     accent: 'tone-600',
     text: 'tone-900',
   },
@@ -48,7 +48,7 @@ const steps = [
     numeral: 'IV',
     eyebrow: 'Same day',
     title: 'Distillation',
-    body: 'Fresh lavender is distilled the same day, producing pure essential oil and aromatic hydrosol.',
+    body: 'Fresh lavender is distilled the same day to produce pure essential oil and aromatic hydrosol.',
     accent: 'tone-100',
     text: 'tone-50',
   },
@@ -119,10 +119,14 @@ export default function ProcessSection() {
   return (
     <section className="bg-[linear-gradient(180deg,var(--tone-200)_0%,var(--tone-500)_100%)] py-20">
       <div className="container-mx">
-        <SectionLabel light>How it&apos;s crafted</SectionLabel>
-        <h2 className="mb-8 font-bold text-section text-tone-900">
-          Grown and crafted on our farm
+        <SectionLabel light>How we grow and craft it</SectionLabel>
+        <h2 className="mb-8 text-section text-tone-900">
+          <span className="font-bold">Grown and crafted</span>{' '}
+          <span className="font-light text-tone-700">on our farm</span>
         </h2>
+        <p className="mb-10 max-w-2xl text-base leading-relaxed text-tone-700/85">
+          From planting and harvesting to distillation, every step happens on our farm.
+        </p>
         <div>
           {steps.map((step, i) => (
             <ProcessStep key={step.numeral} step={step} index={i} />
