@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import SectionLabel from '@/components/layout/SectionLabel'
 import Button from '@/components/ui/Button'
 
@@ -108,29 +109,29 @@ export default function AgrotourismSection() {
             data-delay="200"
           >
             <div className="flex flex-col gap-3">
-              <div className="rounded-xl flex-[5.6] flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
-                Photo 1
+              <div className="rounded-xl flex-[5.6] overflow-hidden">
+                <Image src="/images/field-sunset.png" alt="Lavender field at sunset" width={400} height={500} className="w-full h-full object-cover" />
               </div>
               <div className="flex-2" />
-              <div className="rounded-xl flex-[4.2] flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
-                Photo 2
+              <div className="rounded-xl flex-[4.2] overflow-hidden">
+                <Image src="/images/harvest.png" alt="Harvesting lavender" width={400} height={400} className="w-full h-full object-cover" />
               </div>
             </div>
             <div className="flex flex-col gap-3">
-              <div className="rounded-xl flex-3 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
-                Photo 3
+              <div className="rounded-xl flex-3 overflow-hidden">
+                <Image src="/images/bouquet-table.png" alt="Lavender bouquet on a table" width={400} height={400} className="w-full h-full object-cover" />
               </div>
-              <div className="rounded-xl flex-3 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
-                Photo 4
+              <div className="rounded-xl flex-3 overflow-hidden">
+                <Image src="/images/lavender-closeup.png" alt="Lavender flowers closeup" width={400} height={400} className="w-full h-full object-cover" />
               </div>
               <div className="flex-2" />
             </div>
             <div className="flex flex-col gap-3">
-              <div className="rounded-l-xl rounded-r-none flex-3 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 border-r-0 text-tone-400">
-                Photo 5
+              <div className="rounded-l-xl rounded-r-none flex-3 overflow-hidden">
+                <Image src="/images/evening-field.png" alt="Evening in the lavender field" width={400} height={400} className="w-full h-full object-cover" />
               </div>
-              <div className="rounded-l-xl rounded-r-none flex-2 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 border-r-0 text-tone-400">
-                Photo 6
+              <div className="rounded-l-xl rounded-r-none flex-2 overflow-hidden">
+                <Image src="/images/wine-field.png" alt="Wine among lavender rows" width={400} height={300} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

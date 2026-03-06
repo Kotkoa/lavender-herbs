@@ -1,10 +1,34 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import SectionLabel from '@/components/layout/SectionLabel'
+
+const photos = [
+  { src: '/images/bouquets-grid.png', alt: 'Fresh lavender bouquets laid out to dry' },
+  { src: '/images/field-sunset.png', alt: 'Lavender field at sunset' },
+  { src: '/images/harvest.png', alt: 'Harvesting lavender' },
+  { src: '/images/distillery.png', alt: 'Copper still and essential oil bottles' },
+  { src: '/images/bouquet-table.png', alt: 'Lavender bouquet on a table' },
+  { src: '/images/lavender-closeup.png', alt: 'Lavender flowers closeup' },
+  { src: '/images/oil-bottle.png', alt: 'Lavender essential oil bottle' },
+  { src: '/images/dried-bouquets.png', alt: 'Dried lavender bouquets' },
+  { src: '/images/evening-field.png', alt: 'Evening in the lavender field' },
+  { src: '/images/wine-field.png', alt: 'Wine among lavender rows' },
+]
 
 export default function AboutSection() {
   const ref = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState(0)
+
+  const next = useCallback(() => {
+    setActive((i) => (i + 1) % photos.length)
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(next, 4000)
+    return () => clearInterval(id)
+  }, [next])
 
   useEffect(() => {
     const els = ref.current?.querySelectorAll('.reveal')
@@ -72,16 +96,29 @@ export default function AboutSection() {
           </div>
 
           <div
-            className="reveal rounded-2xl overflow-hidden bg-[rgba(95,61,196,0.15)] aspect-4/5 flex items-center justify-center border border-[rgba(177,151,252,0.3)]"
+            className="reveal relative rounded-2xl overflow-hidden aspect-4/5"
             data-delay="200"
           >
-            <p className="text-center text-sm text-tone-700">
-              Photo from @lavender.herbs
-              <br />
-              <span className="text-[11px] text-tone-600">
-                Replace in Phase 6
-              </span>
-            </p>
+            {photos.map((photo, i) => (
+              <Image
+                key={photo.src}
+                src={photo.src}
+                alt={photo.alt}
+                width={600}
+                height={750}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === active ? 'opacity-100' : 'opacity-0'}`}
+              />
+            ))}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {photos.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === active ? 'bg-white w-4' : 'bg-white/50'}`}
+                  aria-label={`Photo ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
