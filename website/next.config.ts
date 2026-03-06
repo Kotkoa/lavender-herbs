@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   reactCompiler: true,
   images: {
-    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './image-loader.ts',
   },
 };
 
