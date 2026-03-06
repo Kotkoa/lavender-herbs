@@ -2,6 +2,58 @@
 @import "../styles/tokens.css";
 @import "../styles/animations.css";
 
+@theme {
+  --color-tone-50: var(--tone-50);
+  --color-tone-100: var(--tone-100);
+  --color-tone-200: var(--tone-200);
+  --color-tone-300: var(--tone-300);
+  --color-tone-400: var(--tone-400);
+  --color-tone-500: var(--tone-500);
+  --color-tone-600: var(--tone-600);
+  --color-tone-700: var(--tone-700);
+  --color-tone-800: var(--tone-800);
+  --color-tone-900: var(--tone-900);
+  --color-tone-footer: var(--tone-footer);
+
+  --color-muted-light: var(--text-muted-light);
+  --color-muted-dark: var(--text-muted-dark);
+  --color-rule-light: var(--rule-light);
+  --color-rule-dark: var(--rule-dark);
+
+  --spacing-nav: var(--nav-h);
+
+  --font-size-hero: clamp(3.2rem, 8.5vw, 7.5rem);
+  --font-size-section: clamp(2rem, 4vw, 3rem);
+  --font-size-section-sm: clamp(1.75rem, 3.5vw, 2.5rem);
+  --font-size-cta: clamp(2.4rem, 5.5vw, 4.5rem);
+  --font-size-data: clamp(1.5rem, 3vw, 2rem);
+}
+
+@utility container-mx {
+  max-width: var(--mx);
+  padding-inline: 36px;
+  margin-inline: auto;
+}
+
+@utility section-label {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+@utility input-dark {
+  background: rgba(243, 240, 255, 0.08);
+  border: 1px solid rgba(177, 151, 252, 0.25);
+  color: var(--tone-50);
+}
+
+@utility data-card-dark {
+  background: rgba(243, 240, 255, 0.08);
+  border: 1px solid rgba(177, 151, 252, 0.2);
+}
+
 @layer base {
   *,
   *::before,
