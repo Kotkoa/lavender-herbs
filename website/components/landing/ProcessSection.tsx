@@ -119,7 +119,7 @@ export default function ProcessSection() {
   return (
     <section className="bg-[linear-gradient(180deg,var(--tone-200)_0%,var(--tone-500)_100%)] py-20">
       <div className="container-mx">
-        <SectionLabel light>How it&apos;s made</SectionLabel>
+        <SectionLabel light>How it&apos;s crafted</SectionLabel>
         <h2 className="mb-8 font-bold text-section text-tone-900">
           Grown and crafted on our farm
         </h2>
