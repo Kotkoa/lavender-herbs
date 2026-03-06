@@ -28,16 +28,10 @@ export default function AboutSection() {
   }, [])
 
   return (
-    <section
-      style={{
-        background: 'var(--tone-300)',
-        padding: '80px 0',
-      }}
-    >
+    <section className="bg-tone-300 py-20">
       <div
         ref={ref}
-        style={{ maxWidth: 'var(--mx)', padding: '0 36px' }}
-        className="mx-auto"
+        className="container-mx"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
@@ -45,43 +39,32 @@ export default function AboutSection() {
               <SectionLabel>About the Farm</SectionLabel>
             </div>
             <h2
-              className="reveal mb-6 font-bold"
+              className="reveal mb-6 font-bold text-section text-tone-900"
               data-delay="80"
-              style={{
-                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                color: 'var(--tone-900)',
-              }}
             >
               A small lavender farm{' '}
-              <em style={{ fontStyle: 'italic', fontWeight: 300 }}>
+              <em className="italic font-light">
                 built with care.
               </em>
             </h2>
             <blockquote
-              className="reveal mb-8 text-2xl italic font-light leading-snug"
+              className="reveal mb-8 text-2xl italic font-light leading-snug text-tone-800 border-l-[3px] border-tone-600 pl-6"
               data-delay="160"
-              style={{
-                color: 'var(--tone-800)',
-                borderLeft: '3px solid var(--tone-600)',
-                paddingLeft: 24,
-              }}
             >
               &ldquo;The soil, the sun and the slow rhythm of nature shape the
               aroma you experience.&rdquo;
             </blockquote>
             <p
-              className="reveal text-base leading-relaxed mb-4"
+              className="reveal text-base leading-relaxed mb-4 text-tone-900"
               data-delay="240"
-              style={{ color: 'var(--tone-900)' }}
             >
               Every bottle begins in our field. We grow English lavender on a
               small 1,000 m² farm and handle every step ourselves — from
               planting to distillation.
             </p>
             <p
-              className="reveal text-base leading-relaxed"
+              className="reveal text-base leading-relaxed text-tone-800"
               data-delay="320"
-              style={{ color: 'var(--tone-800)' }}
             >
               No shortcuts. No intermediaries. Just lavender, carefully grown
               and crafted.
@@ -89,24 +72,13 @@ export default function AboutSection() {
           </div>
 
           <div
-            className="reveal rounded-2xl overflow-hidden"
+            className="reveal rounded-2xl overflow-hidden bg-[rgba(95,61,196,0.15)] aspect-4/5 flex items-center justify-center border border-[rgba(177,151,252,0.3)]"
             data-delay="200"
-            style={{
-              background: 'rgba(95,61,196,0.15)',
-              aspectRatio: '4/5',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '1px solid rgba(177,151,252,0.3)',
-            }}
           >
-            <p
-              className="text-center text-sm"
-              style={{ color: 'var(--tone-700)' }}
-            >
+            <p className="text-center text-sm text-tone-700">
               Photo from @lavender.herbs
               <br />
-              <span style={{ fontSize: 11, color: 'var(--tone-600)' }}>
+              <span className="text-[11px] text-tone-600">
                 Replace in Phase 6
               </span>
             </p>

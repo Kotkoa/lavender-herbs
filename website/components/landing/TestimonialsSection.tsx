@@ -48,24 +48,10 @@ export default function TestimonialsSection() {
   }, []);
 
   return (
-    <section
-      style={{
-        background: "linear-gradient(180deg, var(--tone-500) 0%, var(--tone-600) 100%)",
-        padding: "80px 0",
-      }}
-    >
-      <div
-        style={{ maxWidth: "var(--mx)", padding: "0 36px" }}
-        className="mx-auto"
-      >
+    <section className="bg-[linear-gradient(180deg,var(--tone-500)_0%,var(--tone-600)_100%)] py-20">
+      <div className="container-mx">
         <SectionLabel light>What people say</SectionLabel>
-        <h2
-          className="mb-8 font-bold"
-          style={{
-            fontSize: "clamp(2rem, 4vw, 3rem)",
-            color: "var(--tone-50)",
-          }}
-        >
+        <h2 className="mb-8 font-bold text-section text-tone-50">
           Loved by people who appreciate real lavender.
         </h2>
 
@@ -76,17 +62,14 @@ export default function TestimonialsSection() {
           {testimonials.map((t, i) => (
             <div key={i} className="reveal" data-delay={i * 100}>
               <GlassCard variant="testimonial" className="h-full flex flex-col">
-                <blockquote
-                  className="text-base leading-relaxed flex-1 mb-6 italic"
-                  style={{ color: "var(--tone-50)" }}
-                >
+                <blockquote className="text-base leading-relaxed flex-1 mb-6 italic text-tone-50">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <footer>
-                  <p className="font-semibold text-sm" style={{ color: "var(--tone-100)" }}>
+                  <p className="font-semibold text-sm text-tone-100">
                     {t.author}
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: "var(--tone-300)" }}>
+                  <p className="text-xs mt-0.5 text-tone-300">
                     {t.role}
                   </p>
                 </footer>

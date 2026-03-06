@@ -6,68 +6,31 @@ export default function CTASection() {
   const emailRef = useRef<HTMLInputElement>(null);
 
   return (
-    <section
-      style={{
-        background: "var(--tone-900)",
-        padding: "96px 0",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <section className="bg-tone-900 py-24 relative overflow-hidden">
       {[900, 650, 400].map((size, i) => (
         <div
           key={size}
+          className="absolute top-1/2 left-1/2 rounded-full border border-[rgba(177,151,252,0.08)] animate-[ringPulse_6s_ease-in-out_infinite] pointer-events-none"
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
             width: size,
             height: size,
             marginTop: -size / 2,
             marginLeft: -size / 2,
-            borderRadius: "50%",
-            border: "1px solid rgba(177,151,252,0.08)",
-            animationName: "ringPulse",
-            animationDuration: "6s",
             animationDelay: `${i * 1.5}s`,
-            animationTimingFunction: "ease-in-out",
-            animationIterationCount: "infinite",
-            pointerEvents: "none",
           }}
         />
       ))}
 
-      <div
-        style={{ maxWidth: "var(--mx)", padding: "0 36px", position: "relative", zIndex: 1 }}
-        className="mx-auto"
-      >
+      <div className="container-mx relative z-1">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <p
-              className="mb-4 font-bold"
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "var(--tone-400)",
-              }}
-            >
+            <p className="section-label text-tone-400">
               Newsletter
             </p>
-            <h2
-              className="mb-4 font-bold"
-              style={{
-                fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)",
-                color: "var(--tone-50)",
-                lineHeight: 1.1,
-              }}
-            >
+            <h2 className="mb-4 font-bold text-cta text-tone-50 leading-[1.1]">
               Stay connected with the farm.
             </h2>
-            <p
-              className="mb-8 text-base leading-relaxed"
-              style={{ color: "var(--tone-400)" }}
-            >
+            <p className="mb-8 text-base leading-relaxed text-tone-400">
               Get updates about blooming season, harvest dates and new lavender products.
             </p>
 
@@ -82,21 +45,11 @@ export default function CTASection() {
                 type="email"
                 placeholder="your@email.com"
                 required
-                className="flex-1 px-5 py-3 rounded-full text-sm outline-none"
-                style={{
-                  background: "rgba(243,240,255,0.1)",
-                  border: "1px solid rgba(177,151,252,0.25)",
-                  color: "var(--tone-50)",
-                }}
+                className="flex-1 px-5 py-3 rounded-full text-sm outline-none input-dark"
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-90"
-                style={{
-                  background: "var(--tone-50)",
-                  color: "var(--tone-900)",
-                  whiteSpace: "nowrap",
-                }}
+                className="px-6 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-90 bg-tone-50 text-tone-900 whitespace-nowrap"
               >
                 Subscribe
               </button>
@@ -110,10 +63,7 @@ export default function CTASection() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-sm transition-colors duration-200"
-                  style={{ color: "var(--tone-400)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--tone-200)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--tone-400)")}
+                  className="text-sm text-tone-400 hover:text-tone-200 transition-colors duration-200"
                 >
                   {link.label} →
                 </a>
@@ -125,17 +75,11 @@ export default function CTASection() {
             {[120, 85, 50].map((size, i) => (
               <div
                 key={size}
+                className="absolute rounded-full border border-[rgba(151,117,250,0.25)] animate-[ringPulse_4s_ease-in-out_infinite]"
                 style={{
-                  position: "absolute",
                   width: size,
                   height: size,
-                  borderRadius: "50%",
-                  border: "1px solid rgba(151,117,250,0.25)",
-                  animationName: "ringPulse",
-                  animationDuration: "4s",
                   animationDelay: `${i * 0.8}s`,
-                  animationTimingFunction: "ease-in-out",
-                  animationIterationCount: "infinite",
                 }}
               />
             ))}

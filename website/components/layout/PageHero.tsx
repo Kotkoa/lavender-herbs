@@ -15,46 +15,18 @@ export default function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      style={{
-        background: `linear-gradient(180deg, ${gradientFrom} 0%, ${gradientTo} 100%)`,
-        paddingTop: "calc(var(--nav-h) + 72px)",
-        paddingBottom: 72,
-      }}
+      style={{ "--from": gradientFrom, "--to": gradientTo } as React.CSSProperties}
+      className="bg-[linear-gradient(180deg,var(--from)_0%,var(--to)_100%)] pt-[calc(var(--nav-h)+72px)] pb-18"
     >
-      <div
-        style={{ maxWidth: "var(--mx)", padding: "0 36px" }}
-        className="mx-auto"
-      >
-        <p
-          className="mb-4 font-bold uppercase"
-          style={{
-            fontSize: 10,
-            letterSpacing: "0.22em",
-            color: "var(--tone-500)",
-            animation: "fadeUp 0.85s var(--ease-out) 0.1s both",
-          }}
-        >
+      <div className="container-mx">
+        <p className="section-label text-tone-500 animate-fade-up-d1">
           {label}
         </p>
-        <h1
-          className="font-bold"
-          style={{
-            fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)",
-            color: "var(--tone-900)",
-            lineHeight: 1.1,
-            animation: "fadeUp 0.85s var(--ease-out) 0.25s both",
-          }}
-        >
+        <h1 className="font-bold text-cta text-tone-900 leading-[1.1] animate-fade-up-d25">
           {title}
         </h1>
         {subtitle && (
-          <p
-            className="mt-6 max-w-xl text-lg leading-relaxed"
-            style={{
-              color: "var(--text-muted-light)",
-              animation: "fadeUp 0.85s var(--ease-out) 0.4s both",
-            }}
-          >
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-light animate-fade-up-d4">
             {subtitle}
           </p>
         )}

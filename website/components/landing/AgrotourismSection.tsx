@@ -53,17 +53,10 @@ export default function AgrotourismSection() {
   }, [])
 
   return (
-    <section
-      style={{
-        background:
-          'linear-gradient(180deg, var(--tone-600) 0%, var(--tone-700) 100%)',
-        padding: '80px 0',
-      }}
-    >
+    <section className="bg-[linear-gradient(180deg,var(--tone-600)_0%,var(--tone-700)_100%)] py-20">
       <div
         ref={ref}
-        style={{ maxWidth: 'var(--mx)', padding: '0 36px' }}
-        className="mx-auto"
+        className="container-mx"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
@@ -71,19 +64,14 @@ export default function AgrotourismSection() {
               <SectionLabel light>Visit us</SectionLabel>
             </div>
             <h2
-              className="reveal mb-6 font-bold"
+              className="reveal mb-6 font-bold text-section text-tone-50"
               data-delay="80"
-              style={{
-                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                color: 'var(--tone-50)',
-              }}
             >
               Experience lavender in bloom.
             </h2>
             <p
-              className="reveal mb-10 text-base leading-relaxed"
+              className="reveal mb-10 text-base leading-relaxed text-tone-200"
               data-delay="160"
-              style={{ color: 'var(--tone-200)' }}
             >
               Visit our lavender field during the blooming season and enjoy the
               scent, color and calm of the countryside. Open June — August.
@@ -98,16 +86,10 @@ export default function AgrotourismSection() {
                 >
                   <span className="text-2xl mt-0.5">{activity.icon}</span>
                   <div>
-                    <h3
-                      className="font-semibold mb-1"
-                      style={{ color: 'var(--tone-100)' }}
-                    >
+                    <h3 className="font-semibold mb-1 text-tone-100">
                       {activity.title}
                     </h3>
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: 'var(--tone-300)' }}
-                    >
+                    <p className="text-sm leading-relaxed text-tone-300">
                       {activity.description}
                     </p>
                   </div>
@@ -119,7 +101,7 @@ export default function AgrotourismSection() {
               <Button
                 href="/visit"
                 variant="outline"
-                className="border-(--tone-200) text-(--tone-100) hover:bg-(--tone-200) hover:text-(--tone-900)"
+                className="border-tone-200 text-tone-100 hover:bg-tone-200 hover:text-tone-900"
               >
                 Plan your visit
               </Button>
@@ -130,14 +112,7 @@ export default function AgrotourismSection() {
             {[1, 2, 3, 4].map((n) => (
               <div
                 key={n}
-                className="rounded-xl flex items-center justify-center text-xs"
-                style={{
-                  aspectRatio: n === 1 ? '1/1.2' : '1/1',
-                  background: 'rgba(243,240,255,0.1)',
-                  border: '1px solid rgba(243,240,255,0.15)',
-                  color: 'var(--tone-400)',
-                  gridRow: n === 1 ? 'span 2' : 'auto',
-                }}
+                className={`rounded-xl flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400 ${n === 1 ? 'aspect-[1/1.2] row-span-2' : 'aspect-square'}`}
               >
                 Photo {n}
               </div>

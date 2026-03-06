@@ -53,25 +53,10 @@ export default function ProductsSection() {
   }, []);
 
   return (
-    <section
-      style={{
-        background: "linear-gradient(180deg, var(--tone-100) 0%, var(--tone-200) 100%)",
-        padding: "80px 0",
-      }}
-    >
-      <div
-        style={{ maxWidth: "var(--mx)", padding: "0 36px" }}
-        className="mx-auto"
-      >
+    <section className="bg-[linear-gradient(180deg,var(--tone-100)_0%,var(--tone-200)_100%)] py-20">
+      <div className="container-mx">
         <SectionLabel>Our Products</SectionLabel>
-        <h2
-          className="mb-8 font-bold"
-          style={{
-            fontSize: "clamp(2rem, 4vw, 3rem)",
-            color: "var(--tone-900)",
-            maxWidth: 540,
-          }}
-        >
+        <h2 className="mb-8 font-bold text-section text-tone-900 max-w-135">
           Bring the calm of lavender into your everyday life.
         </h2>
 
@@ -83,19 +68,13 @@ export default function ProductsSection() {
               data-delay={i * 80}
             >
               <GlassCard variant="feature" className="h-full flex flex-col">
-                <h3
-                  className="text-xl font-bold mb-3"
-                  style={{ color: "var(--tone-900)" }}
-                >
+                <h3 className="text-xl font-bold mb-3 text-tone-900">
                   {product.title}
                 </h3>
-                <p
-                  className="text-sm leading-relaxed flex-1 mb-3"
-                  style={{ color: "var(--text-muted-light)" }}
-                >
+                <p className="text-sm leading-relaxed flex-1 mb-3 text-muted-light">
                   {product.description}
                 </p>
-                <p className="text-xs mb-6" style={{ color: "var(--tone-400)" }}>
+                <p className="text-xs mb-6 text-tone-400">
                   {product.meta}
                 </p>
                 <Button variant="outline" href={product.href} className="self-start text-sm px-4 py-2">
