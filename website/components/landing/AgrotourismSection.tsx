@@ -6,24 +6,21 @@ import Button from '@/components/ui/Button'
 
 const activities = [
   {
-    icon: '📸',
-    title: 'Photo Sessions',
+    title: 'Photos in bloom',
     description:
-      'Private photo shoots in the blooming lavender field. Peak season June–July.',
+      'Quiet photo sessions in the lavender field during peak bloom. Best enjoyed in June and July.',
     href: '/visit#photo',
   },
   {
-    icon: '🌿',
-    title: 'Farm Tour',
+    title: 'Guided farm walk',
     description:
-      'Guided walk through the lavender field and distillation process.',
+      'A slow walk through the field with an introduction to how we grow, harvest, and distill lavender.',
     href: '/visit#tour',
   },
   {
-    icon: '✂️',
-    title: 'U-Pick',
+    title: 'Pick your own bouquet',
     description:
-      'Harvest your own lavender bouquet during the blooming season.',
+      'Gather your own lavender bouquet during the blooming season and take a little of the field home with you.',
     href: '/visit#upick',
   },
 ]
@@ -54,39 +51,36 @@ export default function AgrotourismSection() {
 
   return (
     <section className="bg-[linear-gradient(180deg,var(--tone-600)_0%,var(--tone-700)_100%)] py-20">
-      <div
-        ref={ref}
-        className="container-mx"
-      >
+      <div ref={ref} className="container-mx">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <div className="reveal" data-delay="0">
-              <SectionLabel light>Visit us</SectionLabel>
+              <SectionLabel light>Visit the farm</SectionLabel>
             </div>
             <h2
               className="reveal mb-6 font-bold text-section text-tone-50"
               data-delay="80"
             >
-              Experience lavender in bloom.
+              A calm visit, surrounded by lavender.
             </h2>
             <p
               className="reveal mb-10 text-base leading-relaxed text-tone-200"
               data-delay="160"
             >
-              Visit our lavender field during the blooming season and enjoy the
-              scent, color and calm of the countryside. Open June — August.
+              Visit during the blooming season and enjoy the scent, colour, and
+              quiet rhythm of the countryside. Open June to August.
             </p>
 
             <div className="flex flex-col gap-4">
               {activities.map((activity, i) => (
                 <div
                   key={activity.title}
-                  className="reveal flex gap-4 items-start"
+                  className="reveal flex items-start gap-4"
                   data-delay={240 + i * 80}
                 >
-                  <span className="text-2xl mt-0.5">{activity.icon}</span>
+                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-tone-200/70" />
                   <div>
-                    <h3 className="font-semibold mb-1 text-tone-100">
+                    <h3 className="mb-1 font-semibold text-tone-100">
                       {activity.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-tone-300">
@@ -103,7 +97,7 @@ export default function AgrotourismSection() {
                 variant="outline"
                 className="border-tone-200 text-tone-100 hover:bg-tone-200 hover:text-tone-900"
               >
-                Plan your visit
+                Plan a visit
               </Button>
             </div>
           </div>
