@@ -23,16 +23,16 @@ const columns = [
   {
     title: 'Visit',
     links: [
-      { label: 'Farm Tour', href: '/visit#tour' },
-      { label: 'Photo Sessions', href: '/visit#photo' },
-      { label: 'U-Pick', href: '/visit#upick' },
+      { label: 'Guided Farm Walk', href: '/visit#tour' },
+      { label: 'Lavender Field Photos', href: '/visit#photo' },
+      { label: 'Pick Your Own Bouquet', href: '/visit#upick' },
       { label: 'Distillery', href: '/distillery' },
     ],
   },
   {
     title: 'Contact',
     links: [
-      { label: 'Contact Us', href: '/contact' },
+      { label: 'Contact', href: '/contact' },
       { label: 'About the Farm', href: '/about' },
       { label: 'Instagram', href: 'https://www.instagram.com/lavender.herbs/' },
     ],
@@ -49,18 +49,53 @@ export default function Footer() {
               <span className="text-tone-400">L</span>avender Herbs
             </div>
             <p className="text-sm leading-relaxed text-tone-200">
-              Real lavender grown and crafted on our small farm. Essential oil,
-              hydrosol, dried flowers and farm experiences.
+              Real lavender grown and crafted on our small farm in Spain.
+              Essential oil, hydrosol, dried flowers, and quiet farm visits
+              during the blooming season.
             </p>
-            <div className="flex gap-3 mt-6">
-              {['IG', 'TG', 'WA'].map((icon) => (
-                <div
-                  key={icon}
-                  className="flex items-center justify-center text-xs font-semibold rounded-lg w-8.5 h-8.5 border border-tone-500/35 text-tone-400"
+            <div className="flex gap-4 mt-6">
+              <a
+                href="https://www.instagram.com/lavender.herbs/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tone-400 hover:text-tone-100 transition-colors duration-200"
+                aria-label="Instagram"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-5 h-5"
                 >
-                  {icon}
-                </div>
-              ))}
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="5" />
+                  <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="1"
+                    fill="currentColor"
+                    stroke="none"
+                  />
+                </svg>
+              </a>
+              <a
+                href="https://x.com/Kotkoa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tone-400 hover:text-tone-100 transition-colors duration-200"
+                aria-label="X (Twitter)"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -94,7 +129,7 @@ export default function Footer() {
             All rights reserved
           </p>
           <p className="text-[11px] text-tone-600">
-            Pure lavender. From field to bottle.
+            Pure lavender, grown and crafted on our farm.
           </p>
         </div>
       </div>

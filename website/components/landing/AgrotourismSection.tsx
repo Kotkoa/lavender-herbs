@@ -8,7 +8,7 @@ const activities = [
   {
     title: 'Photos in bloom',
     description:
-      'Quiet photo sessions in the lavender field during peak bloom. Best enjoyed in June and July.',
+      'Photo sessions in the lavender field during peak bloom, especially in June and July.',
     href: '/visit#photo',
   },
   {
@@ -20,7 +20,7 @@ const activities = [
   {
     title: 'Pick your own bouquet',
     description:
-      'Gather your own lavender bouquet during the blooming season and take a little of the field home with you.',
+      'Gather your own lavender bouquet during the blooming season and bring a piece of the farm home with you.',
     href: '/visit#upick',
   },
 ]
@@ -50,9 +50,9 @@ export default function AgrotourismSection() {
   }, [])
 
   return (
-    <section className="bg-[linear-gradient(180deg,var(--tone-600)_0%,var(--tone-700)_100%)] py-20">
+    <section className="bg-[linear-gradient(180deg,var(--tone-600)_0%,var(--tone-700)_100%)] py-20 overflow-hidden">
       <div ref={ref} className="container-mx">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-stretch">
           <div>
             <div className="reveal" data-delay="0">
               <SectionLabel light>Visit the farm</SectionLabel>
@@ -61,14 +61,15 @@ export default function AgrotourismSection() {
               className="reveal mb-6 font-bold text-section text-tone-50"
               data-delay="80"
             >
-              A calm visit, surrounded by lavender.
+              A peaceful visit, surrounded by lavender.
             </h2>
+
             <p
               className="reveal mb-10 text-base leading-relaxed text-tone-200"
               data-delay="160"
             >
               Visit during the blooming season and enjoy the scent, colour, and
-              quiet rhythm of the countryside. Open June to August.
+              calm of the countryside. Open from June to August.
             </p>
 
             <div className="flex flex-col gap-4">
@@ -95,22 +96,43 @@ export default function AgrotourismSection() {
               <Button
                 href="/visit"
                 variant="outline"
-                className="border-tone-200 text-tone-100 hover:bg-tone-200 hover:text-tone-900"
+                className="rounded-full border-tone-200 text-tone-100 hover:bg-tone-200 hover:text-tone-900"
               >
                 Plan a visit
               </Button>
             </div>
           </div>
 
-          <div className="reveal grid grid-cols-2 gap-3" data-delay="200">
-            {[1, 2, 3, 4].map((n) => (
-              <div
-                key={n}
-                className={`rounded-xl flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400 ${n === 1 ? 'aspect-[1/1.2] row-span-2' : 'aspect-square'}`}
-              >
-                Photo {n}
+          <div
+            className="reveal grid grid-cols-3 gap-3 -mr-9 md:-mr-[calc((100vw-var(--mx))/2+36px)]"
+            data-delay="200"
+          >
+            <div className="flex flex-col gap-3">
+              <div className="rounded-xl flex-[5.6] flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
+                Photo 1
               </div>
-            ))}
+              <div className="flex-2" />
+              <div className="rounded-xl flex-[4.2] flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
+                Photo 2
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="rounded-xl flex-3 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
+                Photo 3
+              </div>
+              <div className="rounded-xl flex-3 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 text-tone-400">
+                Photo 4
+              </div>
+              <div className="flex-2" />
+            </div>
+            <div className="flex flex-col gap-3">
+              <div className="rounded-l-xl rounded-r-none flex-3 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 border-r-0 text-tone-400">
+                Photo 5
+              </div>
+              <div className="rounded-l-xl rounded-r-none flex-2 flex items-center justify-center text-xs bg-tone-50/10 border border-tone-50/15 border-r-0 text-tone-400">
+                Photo 6
+              </div>
+            </div>
           </div>
         </div>
       </div>
