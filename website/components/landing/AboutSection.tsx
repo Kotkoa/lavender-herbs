@@ -52,7 +52,7 @@ export default function AboutSection() {
   }, [])
 
   return (
-    <section className="bg-tone-300 py-20">
+    <section id="about" className="bg-tone-300 py-20">
       <div
         ref={ref}
         className="container-mx"

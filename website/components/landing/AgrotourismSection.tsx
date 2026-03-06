@@ -51,7 +51,7 @@ export default function AgrotourismSection() {
   }, [])
 
   return (
-    <section className="bg-[linear-gradient(180deg,var(--tone-600)_0%,var(--tone-700)_100%)] py-20 overflow-hidden">
+    <section id="visit" className="bg-[linear-gradient(180deg,var(--tone-600)_0%,var(--tone-700)_100%)] py-20 overflow-hidden">
       <div ref={ref} className="container-mx">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-stretch">
           <div>

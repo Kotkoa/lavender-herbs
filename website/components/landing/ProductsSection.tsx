@@ -53,7 +53,7 @@ export default function ProductsSection() {
   }, [])
 
   return (
-    <section className="bg-[linear-gradient(180deg,var(--tone-100)_0%,var(--tone-200)_100%)] py-20">
+    <section id="products" className="bg-[linear-gradient(180deg,var(--tone-100)_0%,var(--tone-200)_100%)] py-20">
       <div className="container-mx">
         <SectionLabel>Our Products</SectionLabel>
         <h2 className="mb-4 text-section text-tone-900 max-w-135">

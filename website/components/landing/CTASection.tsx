@@ -2,7 +2,7 @@
 
 export default function CTASection() {
   return (
-    <section className="bg-tone-900 py-24 relative overflow-hidden">
+    <section id="contact" className="bg-tone-900 py-24 relative overflow-hidden">
       {[900, 650, 400].map((size, i) => (
         <div
           key={size}

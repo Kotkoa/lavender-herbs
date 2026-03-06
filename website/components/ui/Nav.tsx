@@ -5,12 +5,11 @@ import Link from 'next/link'
 import Button from './Button'
 
 const links = [
-  { href: '/products', label: 'Products' },
-  { href: '/florists', label: 'Florists' },
-  { href: '/distillery', label: 'Distillery' },
-  { href: '/visit', label: 'Visit' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/#products', label: 'Products' },
+  { href: '/#about', label: 'About' },
+  { href: '/#process', label: 'Distillery' },
+  { href: '/#visit', label: 'Visit' },
+  { href: '/#contact', label: 'Contact' },
 ]
 
 export default function Nav() {
@@ -50,7 +49,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <Button variant="pill-outline" href="/products">
+        <Button variant="pill-outline" href="/#products">
           Shop Lavender
         </Button>
       </div>

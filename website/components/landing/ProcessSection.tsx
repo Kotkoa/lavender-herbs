@@ -117,7 +117,7 @@ function ProcessStep({
 
 export default function ProcessSection() {
   return (
-    <section className="bg-[linear-gradient(180deg,var(--tone-200)_0%,var(--tone-500)_100%)] py-20">
+    <section id="process" className="bg-[linear-gradient(180deg,var(--tone-200)_0%,var(--tone-500)_100%)] py-20">
       <div className="container-mx">
         <SectionLabel light>How we grow and craft it</SectionLabel>
         <h2 className="mb-8 text-section text-tone-900">
