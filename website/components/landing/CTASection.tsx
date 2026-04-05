@@ -20,11 +20,11 @@ export default function CTASection() {
       <div className="container-mx relative z-1">
         <div className="max-w-3xl">
           <div>
-            <p className="section-label text-tone-400">Stay connected</p>
+            <p className="section-label text-tone-300">Stay connected</p>
             <h2 className="mb-4 font-bold text-cta text-tone-50 leading-[1.1]">
               Follow the season as it unfolds.
             </h2>
-            <p className="mb-8 text-base leading-relaxed text-tone-400">
+            <p className="mb-8 text-base leading-relaxed text-tone-300">
               Follow along for blooming updates, harvest moments, and quiet life
               on the farm in Spain.
             </p>

@@ -72,7 +72,7 @@ export default function ProductsSection() {
             <div key={product.title} className="reveal" data-delay={i * 80}>
               <GlassCard variant="feature" className="h-full flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold text-tone-400">
+                  <span className="text-xs font-bold text-tone-600">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -82,11 +82,12 @@ export default function ProductsSection() {
                 <p className="text-sm leading-relaxed flex-1 mb-3 text-muted-light">
                   {product.description}
                 </p>
-                <p className="text-xs mb-6 text-tone-400">{product.meta}</p>
+                <p className="text-xs mb-6 text-tone-600">{product.meta}</p>
                 <Button
                   variant="outline"
                   href={product.href}
                   className="self-start text-sm px-4 py-2"
+                  aria-label={`Learn more about ${product.title}`}
                 >
                   Learn more
                 </Button>

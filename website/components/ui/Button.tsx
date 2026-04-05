@@ -7,6 +7,7 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   type?: "button" | "submit" | "reset";
+  "aria-label"?: string;
 }
 
 export default function Button({
@@ -16,6 +17,7 @@ export default function Button({
   children,
   className = "",
   type = "button",
+  "aria-label": ariaLabel,
 }: ButtonProps) {
   const base = "inline-flex items-center justify-center font-semibold transition-all duration-200 cursor-pointer";
 
@@ -28,11 +30,11 @@ export default function Button({
   const cls = `${base} ${variants[variant]} ${className}`;
 
   if (href) {
-    return <Link href={href} className={cls}>{children}</Link>;
+    return <Link href={href} className={cls} aria-label={ariaLabel}>{children}</Link>;
   }
 
   return (
-    <button type={type} onClick={onClick} className={cls}>
+    <button type={type} onClick={onClick} className={cls} aria-label={ariaLabel}>
       {children}
     </button>
   );

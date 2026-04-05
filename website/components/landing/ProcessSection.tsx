@@ -42,7 +42,7 @@ const steps = [
     title: 'Harvest',
     body: 'Lavender is harvested by hand at peak bloom, when aroma and essential oil levels are at their highest.',
     accent: 'tone-200',
-    text: 'tone-50',
+    text: 'tone-900',
   },
   {
     numeral: 'IV',
@@ -50,7 +50,7 @@ const steps = [
     title: 'Distillation',
     body: 'Fresh lavender is distilled the same day to produce pure essential oil and aromatic hydrosol.',
     accent: 'tone-100',
-    text: 'tone-50',
+    text: 'tone-900',
   },
 ]
 

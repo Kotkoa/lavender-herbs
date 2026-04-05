@@ -13,8 +13,8 @@
 
   --text-on-light:    var(--tone-900);
   --text-on-dark:     var(--tone-50);
-  --text-muted-light: var(--tone-500);
-  --text-muted-dark:  var(--tone-200);
+  --text-muted-light: var(--tone-700);
+  --text-muted-dark:  var(--tone-100);
 
   --rule-light: rgba(95, 61, 196, 0.12);
   --rule-dark:  rgba(243, 240, 255, 0.14);
