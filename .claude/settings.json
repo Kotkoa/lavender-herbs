@@ -1,1 +1,14 @@
-{}
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:domains.cloudflare.com)",
+      "Bash(whois lavenderherbs.net)",
+      "Bash(whois lavenderherbs.org)",
+      "Bash(whois lavenderherbs.co)",
+      "Bash(whois lavenderherbs.info)",
+      "Bash(whois lavenderherbs.shop)",
+      "Bash(whois lavenderherbs.site)",
+      "WebFetch(domain:cfdomainpricing.com)"
+    ]
+  }
+}
