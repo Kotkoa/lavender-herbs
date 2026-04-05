@@ -5,7 +5,7 @@ interface SectionLabelProps {
 
 export default function SectionLabel({ children, light = false }: SectionLabelProps) {
   return (
-    <p className={`section-label ${light ? "text-tone-300" : "text-tone-600"}`}>
+    <p className={`section-label ${light ? "text-tone-400" : "text-tone-500"}`}>
       {children}
     </p>
   );

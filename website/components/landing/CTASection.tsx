@@ -20,11 +20,11 @@ export default function CTASection() {
       <div className="container-mx relative z-1">
         <div className="max-w-3xl">
           <div>
-            <p className="section-label text-tone-300">Stay connected</p>
+            <p className="section-label text-tone-400">Stay connected</p>
             <h2 className="mb-4 font-bold text-cta text-tone-50 leading-[1.1]">
               Follow the season as it unfolds.
             </h2>
-            <p className="mb-8 text-base leading-relaxed text-tone-300">
+            <p className="mb-8 text-base leading-relaxed text-tone-400">
               Follow along for blooming updates, harvest moments, and quiet life
               on the farm in Spain.
             </p>
@@ -34,7 +34,7 @@ export default function CTASection() {
                 href="https://www.instagram.com/lavender.herbs/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-sm text-tone-300 hover:text-tone-50 transition-colors duration-200"
+                className="flex items-center gap-2.5 text-sm text-tone-400 hover:text-tone-50 transition-colors duration-200"
               >
                 <svg
                   viewBox="0 0 24 24"

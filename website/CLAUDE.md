@@ -120,4 +120,3 @@ Animated vertical bars (CSS `scaleY` + `rotate`, staggered per element). Hero: 6
 - Draft routes prefixed with `_` (Next.js ignores them)
 - Components organized by role: `landing/`, `layout/`, `ui/`
 - All code and comments in English
-- Content text in Russian (primary audience)
