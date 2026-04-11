@@ -8,7 +8,11 @@
       "Bash(whois lavenderherbs.info)",
       "Bash(whois lavenderherbs.shop)",
       "Bash(whois lavenderherbs.site)",
-      "WebFetch(domain:cfdomainpricing.com)"
+      "WebFetch(domain:cfdomainpricing.com)",
+      "Read(//Users/kotkoa/.claude/skills/supabase-postgres-best-practices/references/**)",
+      "Read(//Users/kotkoa/.agents/skills/supabase-postgres-best-practices/references/**)",
+      "Read(//Users/kotkoa/.claude/skills/supabase-postgres-best-practices/**)",
+      "Read(//Users/kotkoa/.agents/skills/supabase-postgres-best-practices/**)"
     ]
   }
 }

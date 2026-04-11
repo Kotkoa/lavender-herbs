@@ -95,8 +95,8 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 mb-10 animate-fade-up-d13">
-          <Button variant="solid" href="/products">
-            Shop Lavender
+          <Button variant="solid" href="/donate">
+            Plant a Bush
           </Button>
           <Button variant="outline" href="/visit">
             Visit the Farm
