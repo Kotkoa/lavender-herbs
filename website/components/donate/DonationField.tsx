@@ -17,8 +17,8 @@ function generateGrid(): Array<{ left: number; top: number }> {
   const positions: Array<{ left: number; top: number }> = []
   for (let col = 0; col < COLS; col++) {
     for (let row = 0; row < ROWS; row++) {
-      const left = col * 2 + 3
-      const top = row * 8
+      const left = col * 2 + 6
+      const top = row * 8 + 4
       positions.push({ left, top })
     }
   }
@@ -47,7 +47,7 @@ export default function DonationField({ totalBushes }: DonationFieldProps) {
       {gridPositions.map((position, index) => {
         const isFilled = index < filledCells
         const isPartial = index === filledCells && totalBushes % BUSHES_PER_CELL > 0
-        const partialOpacity = isPartial ? Math.max((totalBushes % BUSHES_PER_CELL) / BUSHES_PER_CELL, 0.4) : 0
+        const partialOpacity = isPartial ? Math.max((totalBushes % BUSHES_PER_CELL) / BUSHES_PER_CELL, 0.6) : 0
 
         if (!isFilled && !isPartial) return null
 

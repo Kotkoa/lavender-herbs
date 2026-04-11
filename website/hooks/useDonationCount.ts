@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 
 interface DonationStats {
   totalBushes: number
@@ -14,7 +14,7 @@ export function useDonationCount(): DonationStats {
 
   useEffect(() => {
     async function fetchStats() {
-      const { data } = await supabase
+      const { data } = await getSupabase()
         .from('donation_stats')
         .select('total_bushes, total_donors')
         .eq('id', 1)
@@ -29,7 +29,8 @@ export function useDonationCount(): DonationStats {
 
     fetchStats()
 
-    const channel = supabase
+    const supabaseClient = getSupabase()
+    const channel = supabaseClient
       .channel('donation_stats_changes')
       .on(
         'postgres_changes',
@@ -43,7 +44,7 @@ export function useDonationCount(): DonationStats {
       .subscribe()
 
     return () => {
-      supabase.removeChannel(channel)
+      supabaseClient.removeChannel(channel)
     }
   }, [])
 
