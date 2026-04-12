@@ -114,9 +114,55 @@ Animated vertical bars (CSS `scaleY` + `rotate`, staggered per element). Hero: 6
 - Nav: `68px` height, fixed, transparent-to-glass on scroll
 - Grids: 3-col -> 2-col (1024px) -> 1-col (768px)
 
+## Donation System (Stripe + Supabase)
+
+Interactive crowdfunding page at `/donate` — "Plant a Lavender Bush", EUR 1 per bush, goal 10,000.
+
+### Architecture
+
+```
+"Plant Now" button -> Stripe Payment Link (new tab)
+  -> Payment completed -> Stripe webhook
+  -> Supabase Edge Function (stripe-webhook)
+  -> process_donation() RPC (atomic, idempotent)
+  -> Supabase Realtime -> frontend updates field visualization
+```
+
+### Key files
+
+```
+website/
+├── app/donate/page.tsx                          # Static page shell
+├── components/donate/
+│   ├── DonatePageClient.tsx                     # Client orchestrator
+│   ├── DonationField.tsx                        # Interactive field (50x20 grid, bush.png)
+│   ├── DonationControls.tsx                     # "Plant Now" button -> Payment Link
+│   └── DonationProgress.tsx                     # Progress bar + stats
+├── hooks/useDonationCount.ts                    # Supabase Realtime subscription
+├── lib/supabase.ts                              # Lazy-initialized client (getSupabase())
+├── lib/stripe.ts                                # Payment Link URL helper
+└── supabase/
+    ├── functions/stripe-webhook/index.ts        # Deno Edge Function
+    └── migrations/001_donation_schema.sql       # DB schema + RPC
+```
+
+### External services
+
+- **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org from other projects)
+- **Stripe:** Lavender Herbs account, Payment Links for checkout
+- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
+- **Supabase secrets (CLI):** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+
+### Important notes
+
+- `lib/supabase.ts` uses lazy init (`getSupabase()`) — required for static export SSG build
+- Edge Function uses `constructEventAsync` (not `constructEvent`) — required for Deno
+- `.env.local` has test Payment Link; GitHub Variables have live Payment Link
+- `supabase/` excluded from tsconfig (Deno runtime, different types)
+
 ## Conventions
 
 - Path alias: `@/*` maps to project root (`@/components/...`, `@/styles/...`)
 - Draft routes prefixed with `_` (Next.js ignores them)
-- Components organized by role: `landing/`, `layout/`, `ui/`
+- Components organized by role: `landing/`, `layout/`, `ui/`, `donate/`
 - All code and comments in English
