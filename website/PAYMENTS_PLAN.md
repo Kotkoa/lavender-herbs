@@ -5,32 +5,40 @@
 
 ## Состояние аккаунтов
 
-- `acct_1TIrYIHVza3K996l` — Lavender Herbs – Site: рабочий аккаунт сайта, Payment Link и webhook.
+- `acct_1UFxJlEbCLGxJE3e` — Kotkoa Ko-fi: рабочий аккаунт сайта (Payment Link + webhook) и одновременно выплаты Ko-fi.
+- `acct_1TIrYIHVza3K996l` — Lavender Herbs – Site: прежний аккаунт сайта; его Payment Link и webhook отключены.
 - `acct_1TIrYUQkDnBeUJzD` — Lavender Herbs – Sandbox: тестовый аккаунт.
-- `acct_1UFxJlEbCLGxJE3e` — Kotkoa Ko-fi: прежний Ko-fi-путь; не используется сайтом после возврата на Stripe.
-- `acct_1UFxA0JZO64Zj4Wa` — Lavender Herbs – Buy Me a Coffee: прежний BMC-путь.
+- `acct_1UFxA0JZO64Zj4Wa` — Lavender Herbs – Buy Me a Coffee: прежний BMC-путь, к закрытию.
+
+## Stripe-объекты сайта (аккаунт Kotkoa Ko-fi, live)
+
+- Product «Lavender field bush», €1.00 EUR, разовый.
+- Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly` — `https://buy.stripe.com/7sY8wPcZO9gN7gt5d99AA00`:
+  количество выбирает покупатель (1–10000), авто-налог выключен, после оплаты — редирект на `https://lavenderherbs.org/donate`.
+- Webhook `we_1UJYVqEbCLGxJE3eQLZRRwY5` («lavenderherbs-supabase»), API `2026-08-26.dahlia`:
+  `https://uiixexvzjpjfuyoigmdf.supabase.co/functions/v1/stripe-webhook`,
+  события `checkout.session.completed`, `checkout.session.async_payment_succeeded`.
+- Adaptive Pricing включён: покупатель может платить в своей валюте; webhook считает по исходной EUR-цене.
 
 ## Часть A. Ручные шаги
 
-1. В Stripe Dashboard открыть аккаунт **Lavender Herbs – Site**.
-2. Активировать прежний Payment Link `plink_1TIsohHVza3K996l3bCLUcOY`, если он сохранил нужный товар и валюту EUR.
-3. В Developers → Webhooks включить или создать endpoint:
-   `https://uiixexvzjpjfuyoigmdf.supabase.co/functions/v1/stripe-webhook`.
-   События: `checkout.session.completed`, `checkout.session.async_payment_succeeded`.
-4. Передать основной агенту новый signing secret этого endpoint и секретный Stripe API key безопасным способом;
-   значения не коммитить и не помещать в GitHub Variables.
-5. После публикации провести один тестовый платёж и подтвердить его агенту.
-6. После подтверждения Stripe можно удалить Ko-fi webhook/function/secret вручную, если они больше не нужны.
+1. Stripe → Kotkoa Ko-fi → Developers → API keys → **Create restricted key**, права: Checkout Sessions — Read.
+   Значение → Supabase secret `STRIPE_SECRET_KEY`.
+2. Stripe → Workbench → Webhooks → `lavenderherbs-supabase` → Signing secret → Reveal.
+   Значение → Supabase secret `STRIPE_WEBHOOK_SECRET`.
+3. Секреты не коммитить и не помещать в GitHub Variables.
+4. Провести один платёж €1 через сайт и подтвердить его агенту.
 
 ## Часть B. Реализация
 
 - [x] Frontend снова использует `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` и CTA Stripe.
 - [x] Ko-fi CTA, iframe, client helper и Ko-fi Edge Function удалены из активного кода.
-- [x] Stripe webhook проверяет подпись до обработки, принимает только оплаченные EUR Checkout Sessions,
-      обрабатывает delayed-payment success и идемпотентно вызывает RPC с `source = 'stripe'`.
+- [x] Stripe webhook проверяет подпись до обработки, принимает только оплаченные EUR Checkout Sessions
+      (с учётом Adaptive Pricing), обрабатывает delayed-payment success и идемпотентно вызывает RPC с `source = 'stripe'`.
 - [x] GitHub Actions передаёт только публичные переменные Supabase и Payment Link.
-- [ ] Stripe Payment Link активирован, endpoint настроен и secrets установлены.
-- [ ] Stripe webhook доставлен в Supabase и тестовый платёж увеличил счётчик ровно один раз.
+- [x] Payment Link и webhook endpoint созданы в Kotkoa Ko-fi; GitHub Variable указывает на новый Payment Link.
+- [ ] Supabase secrets `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` установлены (вы).
+- [ ] Тестовый платёж доставлен в Supabase и увеличил счётчик ровно один раз.
 
 ## База и безопасность
 

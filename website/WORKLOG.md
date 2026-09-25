@@ -5,6 +5,8 @@
 - Replaced the active Ko-fi path with a Stripe Payment Link CTA and restored `stripe-webhook`.
 - Webhook processing now accepts only paid EUR Checkout Sessions, handles async-payment success, verifies signatures,
   and uses the existing idempotent Supabase RPC with `source = 'stripe'`.
+- Site payments moved to the `Kotkoa Ko-fi` Stripe account: new Payment Link (€1 bush, quantity 1–10000, redirect
+  back to `/donate`) and webhook endpoint; the webhook handles Adaptive Pricing via `currency_conversion`.
 
 ## 2026-09-25 — Switch to Ko-fi tips
 

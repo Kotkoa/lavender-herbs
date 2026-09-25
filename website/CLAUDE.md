@@ -151,15 +151,17 @@ website/
 ### External services
 
 - **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org, free plan — pauses when idle; restore via dashboard/MCP)
-- **Stripe:** `Lavender Herbs – Site` (`acct_1TIrYIHVza3K996l`)
+- **Stripe:** `Kotkoa Ko-fi` (`acct_1UFxJlEbCLGxJE3e`) — Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly`,
+  webhook `we_1UJYVqEbCLGxJE3eQLZRRwY5`; the same account also receives Ko-fi payouts
 - **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
-- **Supabase secrets:** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+- **Supabase secrets:** `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET`
 
 ### Important notes
 
 - `lib/supabase.ts` uses lazy init (`getSupabase()`) - required for static export SSG build
 - Edge Functions deploy with `--no-verify-jwt` (Stripe webhooks carry no Supabase JWT)
-- `stripe-webhook` counts only paid EUR Checkout Sessions and ignores duplicate deliveries by Checkout Session ID
+- `stripe-webhook` counts only paid Checkout Sessions priced in EUR (Adaptive Pricing: uses `currency_conversion`
+  source currency/amount) and ignores duplicate deliveries by Checkout Session ID
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
 
 

@@ -52,16 +52,20 @@ Deno.serve(async (request) => {
   }
 
   const session = event.data.object as Stripe.Checkout.Session
-  if (session.payment_status !== 'paid' || session.currency !== 'eur') {
+  // With Adaptive Pricing the customer may pay in a local currency; the price itself stays in EUR.
+  const conversion = session.currency_conversion
+  const currency = conversion?.source_currency ?? session.currency
+  if (session.payment_status !== 'paid' || currency !== 'eur') {
     return response({ received: true, counted: false })
   }
 
   try {
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, { limit: 1 })
     const quantity = lineItems.data[0]?.quantity
-    const cents = session.amount_total
+    const cents = conversion?.amount_total ?? session.amount_total
 
-    if (!Number.isSafeInteger(quantity) || quantity <= 0 || !Number.isSafeInteger(cents) || cents <= 0) {
+    if (typeof quantity !== 'number' || !Number.isSafeInteger(quantity) || quantity <= 0 ||
+      typeof cents !== 'number' || !Number.isSafeInteger(cents) || cents <= 0) {
       console.error('Invalid Stripe Checkout session:', session.id)
       return new Response('Invalid Checkout session', { status: 500 })
     }
