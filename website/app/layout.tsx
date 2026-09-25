@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Nav from '@/components/ui/Nav'
 import Footer from '@/components/ui/Footer'
 import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from '@/lib/site'
+import { GA_MEASUREMENT_ID } from '@/lib/analytics'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -65,9 +67,19 @@ export default function RootLayout({
       <body className={inter.variable}>
         <script
           type="application/ld+json"
-          
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+            </Script>
+          </>
+        )}
         <Nav />
         <main>{children}</main>
         <Footer />
