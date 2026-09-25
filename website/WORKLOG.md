@@ -13,6 +13,8 @@ setup live in `CLAUDE.md` (Support System) and `PAYMENTS_PLAN.md`. Sections belo
 - `/donate` copy describes a public counter, not planting; CTA "Tip on Ko-fi"; `NEXT_PUBLIC_KOFI_URL` replaces `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`.
 - Stripe path retired after the Ko-fi site went live: Payment Link deactivated, webhook endpoint disabled,
   `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` variable and `stripe-webhook` source removed.
+- `/donate` now embeds Ko-fi's Tip Panel. The former external CTA and unused `NEXT_PUBLIC_KOFI_URL`
+  build variable were removed.
 
 ## Summary
 

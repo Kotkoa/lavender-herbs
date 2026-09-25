@@ -123,8 +123,7 @@ of planting promises. Never call payments "loans" anywhere (Stripe prohibits len
 ### Architecture
 
 ```
-"Tip on Ko-fi" button -> ko-fi.com/kotkoa (new tab)
-  -> Ko-fi webhook (form field `data`, JSON with verification_token)
+Ko-fi Tip Panel iframe -> Ko-fi webhook (form field `data`, JSON with verification_token)
   -> Supabase Edge Function (kofi-webhook)
   -> process_donation(ext_id, src, qty, cents, donor) RPC (atomic, idempotent)
   -> Supabase Realtime -> frontend updates field visualization
@@ -140,11 +139,10 @@ website/
 ├── components/donate/
 │   ├── DonatePageClient.tsx                     # Client orchestrator
 │   ├── DonationField.tsx                        # Interactive field (50x20 grid, bush.png)
-│   ├── DonationControls.tsx                     # "Tip on Ko-fi" button
+│   ├── DonationControls.tsx                     # Embedded Ko-fi Tip Panel
 │   └── DonationProgress.tsx                     # Progress bar + stats
 ├── hooks/useDonationCount.ts                    # Supabase Realtime subscription
 ├── lib/supabase.ts                              # Lazy-initialized client (getSupabase())
-├── lib/support.ts                               # SUPPORT_URL (Ko-fi page)
 └── supabase/
     ├── functions/kofi-webhook/index.ts          # Deno Edge Function (Ko-fi)
     └── migrations/                              # 001 schema + RPC, 002 Ko-fi source, 003 test cleanup
@@ -154,7 +152,7 @@ website/
 
 - **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org, free plan — pauses when idle; restore via dashboard/MCP)
 - **Ko-fi:** `ko-fi.com/kotkoa`, Stripe account `acct_1UFxJlEbCLGxJE3e` ("Kotkoa Ko-fi")
-- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_KOFI_URL`
+- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - **Supabase secrets:** `KOFI_VERIFICATION_TOKEN`
 
 ### Important notes

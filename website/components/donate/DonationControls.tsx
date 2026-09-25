@@ -1,5 +1,3 @@
-import Button from '@/components/ui/Button'
-import { SUPPORT_URL } from '@/lib/support'
 
 export default function DonationControls() {
   return (
@@ -9,11 +7,16 @@ export default function DonationControls() {
         one bush to the field counter.
       </p>
 
-      {SUPPORT_URL && (
-        <Button variant="solid" href={SUPPORT_URL} className="text-lg px-10 py-4">
-          Tip on Ko-fi
-        </Button>
-      )}
+      <iframe
+        id="kofiframe"
+        src="https://ko-fi.com/kotkoa/?hidefeed=true&widget=true&embed=true"
+        width="100%"
+        height="712"
+        style={{ border: 0, padding: 4, background: '#f9f9f9', boxSizing: 'border-box' }}
+        className="mx-auto block max-w-2xl"
+        loading="lazy"
+        title="Support Kotkoa on Ko-fi"
+      />
     </div>
   )
 }
