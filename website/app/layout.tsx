@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/ui/Nav'
 import Footer from '@/components/ui/Footer'
+import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from '@/lib/site'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -10,21 +11,24 @@ const inter = Inter({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
-const BASE_URL = 'https://kotkoa.github.io/lavender-herbs'
+const TITLE = 'Lavender·Herbs — Pure lavender from field to your home'
+const DESCRIPTION =
+  'Essential oil, hydrosol, dried flowers and agrotourism. Lavandula angustifolia grown with care — from our sun‑drenched field to your home.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
-  title: 'Lavender·Herbs — Pure lavender from field to your home',
-  description:
-    'Essential oil, hydrosol, dried flowers and agrotourism. Lavandula angustifolia grown with care — from our sun‑drenched field to your home.',
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: BASE_URL,
-    siteName: 'Lavender·Herbs',
-    title: 'Lavender·Herbs — Pure lavender from field to your home',
-    description:
-      'Essential oil, hydrosol, dried flowers and agrotourism. Lavandula angustifolia grown with care — from our sun‑drenched field to your home.',
+    url: '/',
+    siteName: SITE_NAME,
+    title: TITLE,
+    description: DESCRIPTION,
     images: [
       {
         url: '/og-image.jpg',
@@ -36,11 +40,19 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lavender·Herbs — Pure lavender from field to your home',
-    description:
-      'Essential oil, hydrosol, dried flowers and agrotourism. Lavandula angustifolia grown with care — from our sun‑drenched field to your home.',
+    title: TITLE,
+    description: DESCRIPTION,
     images: ['/og-image.jpg'],
   },
+}
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/og-image.jpg`,
+  sameAs: SOCIAL_LINKS,
 }
 
 export default function RootLayout({
@@ -51,6 +63,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
+        <script
+          type="application/ld+json"
+          
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Nav />
         <main>{children}</main>
         <Footer />

@@ -1,11 +1,34 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/layout/PageHero";
 import MapContent from "@/components/map/MapContent";
+import { SITE_NAME } from "@/lib/site";
+
+const TITLE = "Lavender Map of Spain | Lavender Herbs";
+const DESCRIPTION =
+  "21 lavender fields, farms, distilleries and shops across Spain. Interactive map with locations, ratings and directions.";
 
 export const metadata: Metadata = {
-  title: "Lavender Map of Spain | Lavender Herbs",
-  description:
-    "21 lavender fields, farms, distilleries and shops across Spain. Interactive map with locations, ratings and directions.",
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/map",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/map",
+    siteName: SITE_NAME,
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lavender field at sunset — Lavender·Herbs",
+      },
+    ],
+  },
 };
 
 export default function MapPage() {
