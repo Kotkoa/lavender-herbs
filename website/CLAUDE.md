@@ -130,8 +130,7 @@ of planting promises. Never call payments "loans" anywhere (Stripe prohibits len
   -> Supabase Realtime -> frontend updates field visualization
 ```
 
-`stripe-webhook` + the Stripe Payment Link are the previous path; they are removed after the Ko-fi path is live
-(see `PAYMENTS_PLAN.md`, step B5).
+The previous Stripe Payment Link path was retired on 2026-09-25: the link is inactive and its webhook endpoint is disabled.
 
 ### Key files
 
@@ -148,8 +147,7 @@ website/
 ├── lib/support.ts                               # SUPPORT_URL (Ko-fi page)
 └── supabase/
     ├── functions/kofi-webhook/index.ts          # Deno Edge Function (Ko-fi)
-    ├── functions/stripe-webhook/index.ts        # Deno Edge Function (legacy Stripe path)
-    └── migrations/                              # 001 schema + RPC, 002 Ko-fi source
+    └── migrations/                              # 001 schema + RPC, 002 Ko-fi source, 003 test cleanup
 ```
 
 ### External services
@@ -157,7 +155,7 @@ website/
 - **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org, free plan — pauses when idle; restore via dashboard/MCP)
 - **Ko-fi:** `ko-fi.com/kotkoa`, Stripe account `acct_1UFxJlEbCLGxJE3e` ("Kotkoa Ko-fi")
 - **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_KOFI_URL`
-- **Supabase secrets (CLI):** `KOFI_VERIFICATION_TOKEN` (+ legacy `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`)
+- **Supabase secrets:** `KOFI_VERIFICATION_TOKEN`
 
 ### Important notes
 

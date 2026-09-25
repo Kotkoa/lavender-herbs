@@ -50,12 +50,10 @@
 3. [x] **Фронтенд** — кнопка «Tip on Ko-fi», тексты без обещаний посадки, `SuccessBanner` удалён,
    кнопки в меню и на главной: «Grow the Field».
 4. [x] **Конфигурация и документация** — GitHub Variable `NEXT_PUBLIC_KOFI_URL` добавлена, `.env.local`,
-   `deploy.yml`, `CLAUDE.md`, `WORKLOG.md` обновлены.
-   Осталось: закоммитить и запушить — GitHub Actions опубликует сайт.
-5. **Отключение Stripe-пути (~10 мин, после деплоя и тестового платежа через Ko-fi).**
-   - Деактивировать Payment Link `plink_1TIsohHVza3K996l3bCLUcOY` (`donate.stripe.com/bJe7sL49F7Rk0rTgVbffy00`).
-   - Удалить webhook `we_1TL90LHVza3K996lZORYt6eH`, функцию `stripe-webhook`, секреты
-     `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` и GitHub Variable `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`.
-
-Порядок важен: Payment Link отключается только после того, как живой сайт ведёт на Ko-fi,
-иначе кнопка на `lavenderherbs.org/donate` сломается.
+   `deploy.yml`, `CLAUDE.md`, `WORKLOG.md` обновлены. Коммит `69374fe` запушен, сайт опубликован.
+5. [x] **Отключение Stripe-пути.**
+   - [x] Payment Link `plink_1TIsohHVza3K996l3bCLUcOY` деактивирован.
+   - [x] Webhook `we_1TL90LHVza3K996lZORYt6eH` отключён (удалить через MCP нельзя — можно удалить в Dashboard).
+   - [x] GitHub Variable `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` удалена, код `stripe-webhook` удалён из репозитория.
+   - [ ] Вы, в Supabase Dashboard: удалить Edge Function `stripe-webhook` и секреты
+     `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (у MCP нет операции удаления).

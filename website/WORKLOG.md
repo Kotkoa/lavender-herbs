@@ -11,6 +11,8 @@ setup live in `CLAUDE.md` (Support System) and `PAYMENTS_PLAN.md`. Sections belo
   `Donation`/`Subscription` with a strict decimal amount; `stripe-webhook` redeployed for the new RPC signature.
 - Migration `003_cleanup_kofi_webhook_test` removed the Ko-fi test payload used to verify the webhook.
 - `/donate` copy describes a public counter, not planting; CTA "Tip on Ko-fi"; `NEXT_PUBLIC_KOFI_URL` replaces `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`.
+- Stripe path retired after the Ko-fi site went live: Payment Link deactivated, webhook endpoint disabled,
+  `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` variable and `stripe-webhook` source removed.
 
 ## Summary
 
