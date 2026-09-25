@@ -51,7 +51,7 @@ export default function Nav() {
         </nav>
 
         <Button variant="pill-outline" href="/donate">
-          Plant a Bush
+          Grow the Field
         </Button>
       </div>
     </header>

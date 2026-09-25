@@ -29,6 +29,14 @@ export default function Button({
 
   const cls = `${base} ${variants[variant]} ${className}`;
 
+  if (href?.startsWith("http")) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={cls} aria-label={ariaLabel}>
+        {children}
+      </a>
+    );
+  }
+
   if (href) {
     return <Link href={href} className={cls} aria-label={ariaLabel}>{children}</Link>;
   }

@@ -96,7 +96,7 @@ export default function HeroSection() {
 
         <div className="flex flex-wrap justify-center gap-4 mb-10 animate-fade-up-d13">
           <Button variant="solid" href="/donate">
-            Plant a Bush
+            Grow the Field
           </Button>
           <Button variant="outline" href="/visit">
             Visit the Farm

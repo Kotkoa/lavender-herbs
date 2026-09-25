@@ -64,7 +64,7 @@ export default function DonationProgress({ totalBushes, totalDonors, isLoading }
           aria-valuenow={totalBushes}
           aria-valuemin={0}
           aria-valuemax={GOAL}
-          aria-label={`${totalBushes} of ${GOAL} lavender bushes planted`}
+          aria-label={`${totalBushes} of ${GOAL} lavender bushes on the field counter`}
         >
           <div
             className="h-full rounded-full transition-[width] duration-1000 ease-out"
@@ -97,7 +97,7 @@ export default function DonationProgress({ totalBushes, totalDonors, isLoading }
             {animatedBushes.toLocaleString()}
           </div>
           <div className="text-xs mt-1 uppercase tracking-[0.15em] text-muted-light">
-            Bushes Planted
+            Bushes Added
           </div>
         </GlassCard>
 

@@ -1,34 +1,19 @@
-'use client'
-
-import { useState } from 'react'
 import Button from '@/components/ui/Button'
-import { getCheckoutUrl } from '@/lib/stripe'
+import { SUPPORT_URL } from '@/lib/support'
 
 export default function DonationControls() {
-  const [isProcessing, setIsProcessing] = useState(false)
-
-  function handleCheckout() {
-    if (isProcessing) return
-    const url = getCheckoutUrl()
-    if (!url) return
-    setIsProcessing(true)
-    window.open(url, '_blank')
-  }
-
   return (
     <div className="flex flex-col items-center gap-6">
       <p className="text-center text-muted-light max-w-md leading-relaxed">
-        Each bush costs just <span className="font-bold text-(--tone-900)">&euro;1</span>.
-        Choose how many bushes to plant on the next page.
+        Tips go through Ko-fi. Every <span className="font-bold text-(--tone-900)">&euro;1</span> adds
+        one bush to the field counter.
       </p>
 
-      <Button
-        variant="solid"
-        onClick={handleCheckout}
-        className="text-lg px-10 py-4"
-      >
-        {isProcessing ? 'Redirecting...' : 'Plant Now'}
-      </Button>
+      {SUPPORT_URL && (
+        <Button variant="solid" href={SUPPORT_URL} className="text-lg px-10 py-4">
+          Tip on Ko-fi
+        </Button>
+      )}
     </div>
   )
 }

@@ -1,5 +1,17 @@
 # Donation Page — Work Log
 
+## 2026-09-25 — Switch to Ko-fi tips
+
+The Stripe Payment Link path is replaced by voluntary tips on `ko-fi.com/kotkoa`; current architecture and
+setup live in `CLAUDE.md` (Support System) and `PAYMENTS_PLAN.md`. Sections below describe the original Stripe build.
+
+- Migration `002_kofi_source` applied: `donations.external_id` + `source`, new `process_donation(ext_id, src, qty, cents, donor)`,
+  seeded the missing `donation_stats` row (the counter never incremented before), revoked the PUBLIC execute grant.
+- Edge Function `kofi-webhook` deployed (fails closed until `KOFI_VERIFICATION_TOKEN` is set); counts only EUR
+  `Donation`/`Subscription` with a strict decimal amount; `stripe-webhook` redeployed for the new RPC signature.
+- Migration `003_cleanup_kofi_webhook_test` removed the Ko-fi test payload used to verify the webhook.
+- `/donate` copy describes a public counter, not planting; CTA "Tip on Ko-fi"; `NEXT_PUBLIC_KOFI_URL` replaces `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`.
+
 ## Summary
 
 Interactive crowdfunding page "Plant a Lavender Bush" for the lavender farm website.

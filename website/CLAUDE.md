@@ -114,19 +114,24 @@ Animated vertical bars (CSS `scaleY` + `rotate`, staggered per element). Hero: 6
 - Nav: `68px` height, fixed, transparent-to-glass on scroll
 - Grids: 3-col -> 2-col (1024px) -> 1-col (768px)
 
-## Donation System (Stripe + Supabase)
+## Support System (Ko-fi + Supabase)
 
-Interactive crowdfunding page at `/donate` — "Plant a Lavender Bush", EUR 1 per bush, goal 10,000.
+Support page at `/donate` — "Grow the Lavender Field": voluntary tips via Ko-fi (`https://ko-fi.com/kotkoa`),
+every €1 adds one bush to the field counter, goal 10,000. Tips carry no rewards or obligations — keep the copy free
+of planting promises. Never call payments "loans" anywhere (Stripe prohibits lending services).
 
 ### Architecture
 
 ```
-"Plant Now" button -> Stripe Payment Link (new tab)
-  -> Payment completed -> Stripe webhook
-  -> Supabase Edge Function (stripe-webhook)
-  -> process_donation() RPC (atomic, idempotent)
+"Tip on Ko-fi" button -> ko-fi.com/kotkoa (new tab)
+  -> Ko-fi webhook (form field `data`, JSON with verification_token)
+  -> Supabase Edge Function (kofi-webhook)
+  -> process_donation(ext_id, src, qty, cents, donor) RPC (atomic, idempotent)
   -> Supabase Realtime -> frontend updates field visualization
 ```
+
+`stripe-webhook` + the Stripe Payment Link are the previous path; they are removed after the Ko-fi path is live
+(see `PAYMENTS_PLAN.md`, step B5).
 
 ### Key files
 
@@ -136,28 +141,30 @@ website/
 ├── components/donate/
 │   ├── DonatePageClient.tsx                     # Client orchestrator
 │   ├── DonationField.tsx                        # Interactive field (50x20 grid, bush.png)
-│   ├── DonationControls.tsx                     # "Plant Now" button -> Payment Link
+│   ├── DonationControls.tsx                     # "Tip on Ko-fi" button
 │   └── DonationProgress.tsx                     # Progress bar + stats
 ├── hooks/useDonationCount.ts                    # Supabase Realtime subscription
 ├── lib/supabase.ts                              # Lazy-initialized client (getSupabase())
-├── lib/stripe.ts                                # Payment Link URL helper
+├── lib/support.ts                               # SUPPORT_URL (Ko-fi page)
 └── supabase/
-    ├── functions/stripe-webhook/index.ts        # Deno Edge Function
-    └── migrations/001_donation_schema.sql       # DB schema + RPC
+    ├── functions/kofi-webhook/index.ts          # Deno Edge Function (Ko-fi)
+    ├── functions/stripe-webhook/index.ts        # Deno Edge Function (legacy Stripe path)
+    └── migrations/                              # 001 schema + RPC, 002 Ko-fi source
 ```
 
 ### External services
 
-- **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org from other projects)
-- **Stripe:** Lavender Herbs account, Payment Links for checkout
-- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
-- **Supabase secrets (CLI):** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+- **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org, free plan — pauses when idle; restore via dashboard/MCP)
+- **Ko-fi:** `ko-fi.com/kotkoa`, Stripe account `acct_1UFxJlEbCLGxJE3e` ("Kotkoa Ko-fi")
+- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_KOFI_URL`
+- **Supabase secrets (CLI):** `KOFI_VERIFICATION_TOKEN` (+ legacy `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`)
 
 ### Important notes
 
 - `lib/supabase.ts` uses lazy init (`getSupabase()`) — required for static export SSG build
-- Edge Function uses `constructEventAsync` (not `constructEvent`) — required for Deno
-- `.env.local` has test Payment Link; GitHub Variables have live Payment Link
+- Edge Functions deploy with `--no-verify-jwt` (webhooks carry no Supabase JWT)
+- Ko-fi counts only `Donation` and `Subscription` webhooks in EUR (the Ko-fi page receives EUR); bushes = whole euros,
+  minimum 1; non-EUR payments are acknowledged with 200 and not counted
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
 
 ## Conventions

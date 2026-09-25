@@ -34,7 +34,7 @@ export default function DonationField({ totalBushes }: DonationFieldProps) {
     <div
       className="relative w-full rounded-2xl overflow-hidden border border-[rgba(177,151,252,0.2)]"
       style={{ aspectRatio: '2 / 1' }}
-      aria-label={`Lavender field: ${totalBushes.toLocaleString()} of ${GOAL.toLocaleString()} bushes planted`}
+      aria-label={`Lavender field counter: ${totalBushes.toLocaleString()} of ${GOAL.toLocaleString()} bushes`}
     >
       <Image
         src="/images/bg-field.png"
@@ -78,7 +78,7 @@ export default function DonationField({ totalBushes }: DonationFieldProps) {
       {totalBushes === 0 && (
         <div className="absolute inset-0 flex items-center justify-center">
           <p className="text-tone-50 text-lg font-medium opacity-60 backdrop-blur-[2px] px-4 py-2 rounded-xl">
-            Plant the first bush...
+            Waiting for the first bush...
           </p>
         </div>
       )}
@@ -102,7 +102,7 @@ export default function DonationField({ totalBushes }: DonationFieldProps) {
               Field Complete!
             </div>
             <div className="text-lg text-tone-100 drop-shadow">
-              10,000 bushes planted. Thank you!
+              10,000 bushes on the counter. Thank you!
             </div>
           </div>
         </div>

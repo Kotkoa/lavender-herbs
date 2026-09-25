@@ -33,7 +33,8 @@ Deno.serve(async (request) => {
     const quantity = lineItems.data[0]?.quantity ?? 1
 
     const { data: inserted, error } = await supabase.rpc('process_donation', {
-      session_id: session.id,
+      ext_id: session.id,
+      src: 'stripe',
       qty: quantity,
       cents: session.amount_total ?? quantity * 100,
       donor: session.customer_details?.name ?? null,

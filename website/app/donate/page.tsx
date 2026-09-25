@@ -3,9 +3,9 @@ import PageHero from '@/components/layout/PageHero'
 import DonatePageClient from '@/components/donate/DonatePageClient'
 
 export const metadata: Metadata = {
-  title: 'Plant a Lavender Bush | Lavender Herbs',
+  title: 'Grow the Lavender Field | Lavender Herbs',
   description:
-    'Help us plant 10,000 lavender bushes. Each €1 donation plants one bush in our field.',
+    'Voluntary tips via Ko-fi. Every €1 adds one lavender bush to the field counter.',
 }
 
 export default function DonatePage() {
@@ -13,8 +13,8 @@ export default function DonatePage() {
     <>
       <PageHero
         label="Support"
-        title="Plant a Lavender Bush."
-        subtitle="Help us fill our 1,000 m² field with 10,000 lavender bushes. Each €1 plants one bush — watch the field grow in real time."
+        title="Grow the Lavender Field."
+        subtitle="Tip on Ko-fi and watch the field fill up: every €1 adds one bush to the counter, in real time."
       />
       <DonatePageClient />
     </>

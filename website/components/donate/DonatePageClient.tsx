@@ -1,60 +1,11 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
 import SectionLabel from '@/components/layout/SectionLabel'
 import GlassCard from '@/components/ui/GlassCard'
 import { useDonationCount } from '@/hooks/useDonationCount'
 import DonationField from './DonationField'
 import DonationControls from './DonationControls'
 import DonationProgress from './DonationProgress'
-
-function SuccessBanner() {
-  const searchParams = useSearchParams()
-  const isSuccess = searchParams.get('success') === 'true'
-  const isCanceled = searchParams.get('canceled') === 'true'
-
-  if (!isSuccess && !isCanceled) return null
-
-  return (
-    <div
-      className="container-mx mb-8"
-      role="status"
-    >
-      <div
-        className="rounded-2xl p-6 text-center backdrop-blur-sm"
-        style={{
-          background: isSuccess
-            ? 'rgba(72,187,120,0.15)'
-            : 'rgba(243,240,255,0.5)',
-          border: isSuccess
-            ? '1px solid rgba(72,187,120,0.3)'
-            : '1px solid rgba(177,151,252,0.2)',
-        }}
-      >
-        {isSuccess ? (
-          <>
-            <div className="text-2xl font-bold text-tone-900 mb-1">
-              Thank you for planting!
-            </div>
-            <div className="text-tone-700">
-              Your lavender bushes are being added to the field.
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="text-lg font-semibold text-tone-700 mb-1">
-              No worries
-            </div>
-            <div className="text-tone-500">
-              Your bushes will be waiting when you&apos;re ready.
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  )
-}
 
 export default function DonatePageClient() {
   const { totalBushes, totalDonors, isLoading } = useDonationCount()
@@ -68,10 +19,6 @@ export default function DonatePageClient() {
         className="py-16"
       >
         <div className="container-mx">
-          <Suspense>
-            <SuccessBanner />
-          </Suspense>
-
           <SectionLabel>The Mission</SectionLabel>
           <h2 className="text-section font-bold text-tone-900 mt-2 mb-8">
             Help us fill the field.
@@ -79,21 +26,21 @@ export default function DonatePageClient() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <GlassCard variant="feature">
-              <div className="text-lg font-bold text-tone-900 mb-2">1,000 m&sup2; field</div>
+              <div className="text-lg font-bold text-tone-900 mb-2">10,000 bushes</div>
               <p className="text-sm text-muted-light leading-relaxed">
-                Our plot is ready for planting. We need 10,000 lavender bushes to fill it completely.
+                The counter fills a picture of a 1,000 m&sup2; plot, one euro at a time.
               </p>
             </GlassCard>
             <GlassCard variant="feature">
               <div className="text-lg font-bold text-tone-900 mb-2">&euro;1 = 1 bush</div>
               <p className="text-sm text-muted-light leading-relaxed">
-                Each euro plants one Lavandula angustifolia bush. Watch the field grow in real time.
+                Every euro tipped on Ko-fi adds one bush to the picture below. It is a public counter, not a planting promise.
               </p>
             </GlassCard>
             <GlassCard variant="feature">
-              <div className="text-lg font-bold text-tone-900 mb-2">Real lavender</div>
+              <div className="text-lg font-bold text-tone-900 mb-2">Voluntary tips</div>
               <p className="text-sm text-muted-light leading-relaxed">
-                Your support creates a real field producing essential oil, hydrosol, and dried flowers.
+                Tips are gifts with no rewards or obligations. They support Kotkoa&apos;s projects, lavender included.
               </p>
             </GlassCard>
           </div>
@@ -122,9 +69,9 @@ export default function DonatePageClient() {
         className="py-16"
       >
         <div className="container-mx">
-          <SectionLabel>Plant</SectionLabel>
+          <SectionLabel>Support</SectionLabel>
           <h2 className="text-section font-bold text-tone-900 mt-2 mb-8">
-            Choose your bushes.
+            Leave a tip.
           </h2>
           <DonationControls />
         </div>
