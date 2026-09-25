@@ -7,6 +7,8 @@
   and uses the existing idempotent Supabase RPC with `source = 'stripe'`.
 - Site payments moved to the `Kotkoa Ko-fi` Stripe account: new Payment Link (€1 bush, quantity 1–10000, redirect
   back to `/donate`) and webhook endpoint; the webhook handles Adaptive Pricing via `currency_conversion`.
+- Stripe account renamed to `Kotkoa Lavender`; Payment Link defaults to 5 bushes (min 2) to cut the share of the fixed
+  €0.25 Stripe fee; payer names are no longer stored in Supabase (migration `004_clear_donor_names`).
 
 ## 2026-09-25 — Switch to Ko-fi tips
 

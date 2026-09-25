@@ -5,16 +5,18 @@
 
 ## Состояние аккаунтов
 
-- `acct_1UFxJlEbCLGxJE3e` — Kotkoa Ko-fi: рабочий аккаунт сайта (Payment Link + webhook) и одновременно выплаты Ko-fi.
+- `acct_1UFxJlEbCLGxJE3e` — Kotkoa Lavender (до 2026-09-25 — «Kotkoa Ko-fi»): рабочий аккаунт сайта
+  (Payment Link + webhook) и одновременно выплаты Ko-fi.
 - `acct_1TIrYIHVza3K996l` — Lavender Herbs – Site: прежний аккаунт сайта; его Payment Link и webhook отключены.
 - `acct_1TIrYUQkDnBeUJzD` — Lavender Herbs – Sandbox: тестовый аккаунт.
 - `acct_1UFxA0JZO64Zj4Wa` — Lavender Herbs – Buy Me a Coffee: прежний BMC-путь, к закрытию.
 
-## Stripe-объекты сайта (аккаунт Kotkoa Ko-fi, live)
+## Stripe-объекты сайта (аккаунт Kotkoa Lavender, live)
 
 - Product «Lavender field bush», €1.00 EUR, разовый.
 - Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly` — `https://buy.stripe.com/7sY8wPcZO9gN7gt5d99AA00`:
-  количество выбирает покупатель (1–10000), авто-налог выключен, после оплаты — редирект на `https://lavenderherbs.org/donate`.
+  по умолчанию 5 кустов (€5), покупатель может выбрать 2–10000; авто-налог выключен;
+  после оплаты — редирект на `https://lavenderherbs.org/donate`.
 - Webhook `we_1UJYVqEbCLGxJE3eQLZRRwY5` («lavenderherbs-supabase»), API `2026-08-26.dahlia`:
   `https://uiixexvzjpjfuyoigmdf.supabase.co/functions/v1/stripe-webhook`,
   события `checkout.session.completed`, `checkout.session.async_payment_succeeded`.
@@ -24,7 +26,7 @@
 
 ## Часть A. Настройка секретов (выполнено 2026-09-25)
 
-- [x] Restricted key (Stripe → Kotkoa Ko-fi → Developers → API keys), права: Checkout Sessions — Read
+- [x] Restricted key (Stripe → Kotkoa Lavender → Developers → API keys), права: Checkout Sessions — Read
       → Supabase secret `STRIPE_SECRET_KEY`.
 - [x] Signing secret (Workbench → Webhooks → `lavenderherbs-supabase`) → Supabase secret `STRIPE_WEBHOOK_SECRET`.
 - Секреты не коммитить и не помещать в GitHub Variables.
@@ -36,7 +38,7 @@
 - [x] Stripe webhook проверяет подпись до обработки, принимает только оплаченные EUR Checkout Sessions
       (с учётом Adaptive Pricing), обрабатывает delayed-payment success и идемпотентно вызывает RPC с `source = 'stripe'`.
 - [x] GitHub Actions передаёт только публичные переменные Supabase и Payment Link.
-- [x] Payment Link и webhook endpoint созданы в Kotkoa Ko-fi; GitHub Variable указывает на новый Payment Link.
+- [x] Payment Link и webhook endpoint созданы в Kotkoa Lavender; GitHub Variable указывает на новый Payment Link.
 - [x] Supabase secrets `STRIPE_SECRET_KEY` (restricted, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET` установлены.
 - [x] Live-платёж €1 (2026-09-25): Stripe → webhook `200`, запись `source = 'stripe'`, qty 1, 100 центов;
       счётчик 0 → 1 куст, 1 донор; редирект на `/donate` работает.
@@ -44,24 +46,22 @@
 ## Часть C. Задачи (записано 2026-09-25)
 
 1. **Квитанция (receipt).** Сейчас внизу: support site `https://ko-fi.com/kotkoa`, email `kotkoa@gmail.com`,
-   телефон `+34 647 18 54 06`. Нужно сменить email и убрать телефон.
-   Где: Stripe → Kotkoa Ko-fi → Settings → Business → Public details (support email / phone / website).
-   - [ ] Новый support email — **нужно от вас**.
+   телефон `+34 647 18 54 06`. Решение: email `support@lavenderherbs.org`, телефон убрать.
+   Где: Stripe → Kotkoa Lavender → Settings → Business → Public details. Public details общие для сайта и Ko-fi.
+   - [ ] Почта `support@lavenderherbs.org`: домен переносится с DNS Namecheap на Cloudflare, Cloudflare Email Routing
+     пересылает на `kotkoa@gmail.com` (вместо текущей переадресации Namecheap).
+   - [ ] Gmail-фильтр: письма на `support@lavenderherbs.org` → ярлык.
+   - [ ] Support email в Stripe → `support@lavenderherbs.org` (после проверки, что почта доходит).
    - [ ] Support phone — удалить (если Stripe не даст сохранить пустым, значит поле обязательно для аккаунта).
-   - [ ] Support site: оставить `ko-fi.com/kotkoa` или сменить на `https://lavenderherbs.org` — решение ваше.
-     Public details общие для сайта и Ko-fi.
-2. **Переименование.** Account name «Kotkoa Ko-fi» → «Kotkoa Lavender»
-   (Settings → Business → Account details). Внутреннее имя, покупатель его не видит.
-   - [ ] Уточнить: менять ли и публичное имя «Kotkoa» в квитанции («Receipt from Kotkoa»).
+2. [x] **Переименование.** Account name «Kotkoa Ko-fi» → «Kotkoa Lavender» (2026-09-25). Внутреннее имя;
+   публичное имя в квитанции («Receipt from Kotkoa») не менялось.
 3. **Комиссия.** Тестовый платёж €1: комиссия Stripe €0.28, на руки €0.72.
    Тариф Stripe Spain для стандартных карт EEA — 1,5 % + €0,25 (https://stripe.com/es/pricing), основную часть даёт
    фиксированные €0,25 с каждого платежа. Доля комиссии: €1 ≈ 27 %, €5 ≈ 6,5 %, €10 ≈ 4 %, €20 ≈ 2,75 %.
-   - [ ] Вариант A (без кода): в Payment Link поставить количество по умолчанию 5 и минимум 3–5 кустов.
-     Webhook считает по quantity, код менять не нужно.
-   - [ ] Вариант B (с кодом): тип Payment Link «Customers choose what to pay» с подсказкой €10 и минимумом €3;
-     webhook считает кусты как `floor(сумма в EUR)`.
-   - [ ] Текст на `/donate`: подсказать, что крупные разовые платежи эффективнее мелких.
+   - [x] Payment Link: по умолчанию 5 кустов (€5), минимум 2 (2026-09-25). Код не менялся.
    - Не помогает: Ko-fi (те же тарифы Stripe), SEPA Direct Debit (фиксированная часть больше).
+4. [x] **Имена плательщиков только в Stripe.** Webhook передаёт `donor = null`; миграция `004_clear_donor_names`
+   очистила сохранённые имена (2026-09-25).
 
 ## База и безопасность
 

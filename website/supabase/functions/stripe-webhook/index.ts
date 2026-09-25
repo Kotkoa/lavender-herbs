@@ -79,7 +79,8 @@ Deno.serve(async (request) => {
       src: 'stripe',
       qty: quantity,
       cents,
-      donor: session.customer_details?.name ?? null,
+      // Payer names stay in Stripe; the public counter needs no personal data.
+      donor: null,
     })
 
     if (error) {

@@ -145,13 +145,13 @@ website/
 ├── lib/stripe.ts                                # Stripe Payment Link accessor
 └── supabase/
     ├── functions/stripe-webhook/index.ts        # Deno Edge Function (Stripe)
-    └── migrations/                              # 001 schema + RPC; 002/003 applied history
+    └── migrations/                              # 001 schema + RPC; 002/003 applied history; 004 donor names cleared
 ```
 
 ### External services
 
 - **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org, free plan — pauses when idle; restore via dashboard/MCP)
-- **Stripe:** `Kotkoa Ko-fi` (`acct_1UFxJlEbCLGxJE3e`) — Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly`,
+- **Stripe:** `Kotkoa Lavender` (`acct_1UFxJlEbCLGxJE3e`) — Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly`,
   webhook `we_1UJYVqEbCLGxJE3eQLZRRwY5`; the same account also receives Ko-fi payouts
 - **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
 - **Supabase secrets:** `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET`
@@ -163,6 +163,7 @@ website/
 - `stripe-webhook` counts only paid Checkout Sessions of the site Payment Link (`SITE_PAYMENT_LINK` constant — the
   account also receives Ko-fi payments) priced in EUR (Adaptive Pricing: uses `currency_conversion` source
   currency/amount) and ignores duplicate deliveries by Checkout Session ID
+- Payer names stay in Stripe only: the webhook stores `donor_name = null`
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
 
 
