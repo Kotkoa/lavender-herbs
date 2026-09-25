@@ -55,6 +55,4 @@
    - [x] Payment Link `plink_1TIsohHVza3K996l3bCLUcOY` деактивирован.
    - [x] Webhook `we_1TL90LHVza3K996lZORYt6eH` отключён (удалить через MCP нельзя — можно удалить в Dashboard).
    - [x] GitHub Variable `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` удалена, код `stripe-webhook` удалён из репозитория.
-   - [ ] Вы, в Supabase Dashboard: удалить Edge Function `stripe-webhook` и секреты
-     `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (у MCP нет операции удаления).
    - [x] Функция `stripe-webhook` удалена (проверено); секреты удалены вами.
