@@ -22,19 +22,19 @@
 
 ## Часть A. Ваши шаги (по порядку)
 
-1. **Описание в аккаунте Site (решение).** Там всё ещё «We sell digital content, including high-quality
-   photographs…» и сайт `kotkoa.com`. Вписать тот же текст, что в Kotkoa Ko-fi, — да / нет.
-2. **Ko-fi, настройки (10 мин).**
-   - [x] Валюта: EUR (сделано). Webhook засчитывает только платежи в EUR.
-   - Contributor status выключить (0% комиссии Ko-fi с разовых чаевых).
-   - About: добавить строку про лавандовый проект и ссылку `https://lavenderherbs.org`.
-   - Проверить, что в Payments подключён Stripe.
+1. [x] **Описание в аккаунте Site** — вписан тот же текст, что в Kotkoa Ko-fi (сайт аккаунта остаётся `kotkoa.com`).
+2. **Ko-fi, настройки (5 мин).**
+   - [x] Валюта: EUR. Webhook засчитывает только платежи в EUR.
+   - Contributor status выключить: `https://ko-fi.com/settings?tab=payment` → переключатель **Contributor** → off.
+   - About: на `ko-fi.com/kotkoa` карандаш у блока **About** → добавить строку про лавандовый проект
+     и ссылку `https://lavenderherbs.org` → Save.
 3. **Buy Me a Coffee (5 мин, необратимо).**
-   - В Buy Me a Coffee: отключить Stripe в настройках выплат.
-   - В Stripe: «Lavender Herbs – Buy Me a Coffee» → Settings → Business → Account details → Close account.
+   - `buymeacoffee.com` → войти → Settings → Payouts (или Payments) → Stripe → **Disconnect**.
+   - `dashboard.stripe.com` → переключатель аккаунтов → «Lavender Herbs – Buy Me a Coffee» → Settings → Business →
+     Account details → внизу **Close account**.
 4. [x] **Ko-fi webhook** — URL и `KOFI_VERIFICATION_TOKEN` настроены. Проверено тестами Ko-fi:
    «single tip test» → +3 куста, «shop order test» не засчитан. Тестовая запись удалена, счётчик = 0.
-5. **Доступ агента к Stripe (2 мин).**
+5. **Доступ агента к Stripe (по желанию, 2 мин).** Сейчас у агента есть запись в 3 live-аккаунта.
    `/mcp reauth stripe:stripe` → отметить только «Lavender Herbs – Site» и «Lavender Herbs – Sandbox».
 
 Налоги: как учитывать чаевые автономо (IRPF / IVA) — вопрос к gestor, не к Stripe.
@@ -57,3 +57,4 @@
    - [x] GitHub Variable `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` удалена, код `stripe-webhook` удалён из репозитория.
    - [ ] Вы, в Supabase Dashboard: удалить Edge Function `stripe-webhook` и секреты
      `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (у MCP нет операции удаления).
+   - [x] Функция `stripe-webhook` удалена (проверено); секреты удалены вами.
