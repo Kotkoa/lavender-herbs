@@ -34,7 +34,7 @@ export default function DonatePageClient() {
             <GlassCard variant="feature">
               <div className="text-lg font-bold text-tone-900 mb-2">&euro;1 = 1 bush</div>
               <p className="text-sm text-muted-light leading-relaxed">
-                Every euro tipped on Ko-fi adds one bush to the picture below. It is a public counter, not a planting promise.
+                Every euro paid through Stripe adds one bush to the picture below. It is a public counter, not a planting promise.
               </p>
             </GlassCard>
             <GlassCard variant="feature">

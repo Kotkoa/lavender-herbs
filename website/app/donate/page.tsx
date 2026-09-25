@@ -5,7 +5,7 @@ import DonatePageClient from '@/components/donate/DonatePageClient'
 export const metadata: Metadata = {
   title: 'Grow the Lavender Field | Lavender Herbs',
   description:
-    'Voluntary tips via Ko-fi. Every €1 adds one lavender bush to the field counter.',
+    'Voluntary support payments via Stripe. Every €1 adds one lavender bush to the field counter.'
 }
 
 export default function DonatePage() {
@@ -14,7 +14,7 @@ export default function DonatePage() {
       <PageHero
         label="Support"
         title="Grow the Lavender Field."
-        subtitle="Tip on Ko-fi and watch the field fill up: every €1 adds one bush to the counter, in real time."
+        subtitle="Support the field through Stripe: every €1 adds one bush to the counter, in real time."
       />
       <DonatePageClient />
     </>

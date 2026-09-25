@@ -1,5 +1,11 @@
 # Donation Page — Work Log
 
+## 2026-09-25 — Restore direct Stripe Checkout
+
+- Replaced the active Ko-fi path with a Stripe Payment Link CTA and restored `stripe-webhook`.
+- Webhook processing now accepts only paid EUR Checkout Sessions, handles async-payment success, verifies signatures,
+  and uses the existing idempotent Supabase RPC with `source = 'stripe'`.
+
 ## 2026-09-25 — Switch to Ko-fi tips
 
 The Stripe Payment Link path is replaced by voluntary tips on `ko-fi.com/kotkoa`; current architecture and

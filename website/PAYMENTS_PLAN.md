@@ -1,61 +1,43 @@
-# План: переход поддержки сайта на Ko-fi
+# План: возврат поддержки сайта на Stripe
 
-Модель: добровольные чаевые через Ko-fi (`https://ko-fi.com/kotkoa`), без обязательств перед поддерживающими.
+Модель: добровольная поддержка через Stripe Payment Link, без обязательств перед поддерживающими.
 Слово «займы» не используем ни в Stripe, ни на сайте: Stripe запрещает lending services.
 
-## Уже сделано (2026-09-25)
+## Состояние аккаунтов
 
-- [x] Stripe-аккаунты переименованы (внутреннее Account name):
-  - `acct_1TIrYIHVza3K996l` — Lavender Herbs – Site (Payment Link + webhook сайта)
-  - `acct_1TIrYUQkDnBeUJzD` — Lavender Herbs – Sandbox
-  - `acct_1UFxJlEbCLGxJE3e` — Kotkoa Ko-fi
-  - `acct_1UFxA0JZO64Zj4Wa` — Lavender Herbs – Buy Me a Coffee
-- [x] Public details аккаунта Kotkoa Ko-fi: имя `Kotkoa`, сайт и support URL `https://ko-fi.com/kotkoa`,
-  support email `kotkoa@gmail.com`, statement descriptor `KOTKOA`.
-- [x] Product description аккаунта Kotkoa Ko-fi (industry без изменений, «Other digital goods»):
-  > Andriy Kotko (Kotkoa), independent software developer in Spain. I publish free content — programming
-  > projects, microstock content developing, blog posts, travel notes and a lavender growing project — and
-  > receive voluntary tips and commercial payments.
+- `acct_1TIrYIHVza3K996l` — Lavender Herbs – Site: рабочий аккаунт сайта, Payment Link и webhook.
+- `acct_1TIrYUQkDnBeUJzD` — Lavender Herbs – Sandbox: тестовый аккаунт.
+- `acct_1UFxJlEbCLGxJE3e` — Kotkoa Ko-fi: прежний Ko-fi-путь; не используется сайтом после возврата на Stripe.
+- `acct_1UFxA0JZO64Zj4Wa` — Lavender Herbs – Buy Me a Coffee: прежний BMC-путь.
 
-  Несмотря на предупреждение Stripe «Shared legal entity», описание сохранилось только в Kotkoa Ko-fi;
-  у Site, Buy Me a Coffee и Sandbox осталось старое («We sell digital content…»).
+## Часть A. Ручные шаги
 
-## Часть A. Ваши шаги (по порядку)
+1. В Stripe Dashboard открыть аккаунт **Lavender Herbs – Site**.
+2. Активировать прежний Payment Link `plink_1TIsohHVza3K996l3bCLUcOY`, если он сохранил нужный товар и валюту EUR.
+3. В Developers → Webhooks включить или создать endpoint:
+   `https://uiixexvzjpjfuyoigmdf.supabase.co/functions/v1/stripe-webhook`.
+   События: `checkout.session.completed`, `checkout.session.async_payment_succeeded`.
+4. Передать основной агенту новый signing secret этого endpoint и секретный Stripe API key безопасным способом;
+   значения не коммитить и не помещать в GitHub Variables.
+5. После публикации провести один тестовый платёж и подтвердить его агенту.
+6. После подтверждения Stripe можно удалить Ko-fi webhook/function/secret вручную, если они больше не нужны.
 
-1. **Описание в аккаунте Site (решение).** Там всё ещё «We sell digital content, including high-quality
-   photographs…» и сайт `kotkoa.com`. Вписать тот же текст, что в Kotkoa Ko-fi, — да / нет.
-2. **Ko-fi, настройки (10 мин).**
-   - [x] Валюта: EUR (сделано). Webhook засчитывает только платежи в EUR.
-   - Contributor status выключить (0% комиссии Ko-fi с разовых чаевых).
-   - About: добавить строку про лавандовый проект и ссылку `https://lavenderherbs.org`.
-   - Проверить, что в Payments подключён Stripe.
-3. **Buy Me a Coffee (5 мин, необратимо).**
-   - В Buy Me a Coffee: отключить Stripe в настройках выплат.
-   - В Stripe: «Lavender Herbs – Buy Me a Coffee» → Settings → Business → Account details → Close account.
-4. [x] **Ko-fi webhook** — URL и `KOFI_VERIFICATION_TOKEN` настроены. Проверено тестами Ko-fi:
-   «single tip test» → +3 куста, «shop order test» не засчитан. Тестовая запись удалена, счётчик = 0.
-5. **Доступ агента к Stripe (2 мин).**
-   `/mcp reauth stripe:stripe` → отметить только «Lavender Herbs – Site» и «Lavender Herbs – Sandbox».
+## Часть B. Реализация
 
-Налоги: как учитывать чаевые автономо (IRPF / IVA) — вопрос к gestor, не к Stripe.
+- [x] Frontend снова использует `NEXT_PUBLIC_STRIPE_PAYMENT_LINK` и CTA Stripe.
+- [x] Ko-fi CTA, iframe, client helper и Ko-fi Edge Function удалены из активного кода.
+- [x] Stripe webhook проверяет подпись до обработки, принимает только оплаченные EUR Checkout Sessions,
+      обрабатывает delayed-payment success и идемпотентно вызывает RPC с `source = 'stripe'`.
+- [x] GitHub Actions передаёт только публичные переменные Supabase и Payment Link.
+- [ ] Stripe Payment Link активирован, endpoint настроен и secrets установлены.
+- [ ] Stripe webhook доставлен в Supabase и тестовый платёж увеличил счётчик ровно один раз.
 
-## Часть B. Правки сайта (делаю я)
+## База и безопасность
 
-1. [x] **Миграция `002_kofi_source.sql`** — применена к базе. Заодно исправлено:
-   в базе не было строки `donation_stats` (счётчик никогда не рос) и `process_donation` мог вызвать кто угодно
-   (grant PUBLIC) — теперь только `service_role`.
-2. [x] **Edge function `kofi-webhook`** — задеплоена; `stripe-webhook` передеплоена под новую сигнатуру RPC.
-   Локальный прогон: верный токен → +3 куста за 3.50; повтор не считается; чужой токен → 401;
-   Shop Order не считается; 0.50 → 1 куст; мусор в amount → 400.
-3. [x] **Фронтенд** — кнопка «Tip on Ko-fi», тексты без обещаний посадки, `SuccessBanner` удалён,
-   кнопки в меню и на главной: «Grow the Field».
-4. [x] **Конфигурация и документация** — GitHub Variable `NEXT_PUBLIC_KOFI_URL` добавлена, `.env.local`,
-   `deploy.yml`, `CLAUDE.md`, `WORKLOG.md` обновлены.
-   Осталось: закоммитить и запушить — GitHub Actions опубликует сайт.
-5. **Отключение Stripe-пути (~10 мин, после деплоя и тестового платежа через Ko-fi).**
-   - Деактивировать Payment Link `plink_1TIsohHVza3K996l3bCLUcOY` (`donate.stripe.com/bJe7sL49F7Rk0rTgVbffy00`).
-   - Удалить webhook `we_1TL90LHVza3K996lZORYt6eH`, функцию `stripe-webhook`, секреты
-     `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` и GitHub Variable `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`.
+Исторические миграции `002_kofi_source.sql` и `003_cleanup_kofi_webhook_test.sql` остаются в репозитории как уже применённая история.
+Текущий RPC принимает `process_donation(ext_id, src, qty, cents, donor)`; доступ к нему остаётся только у `service_role`.
+Счётчик не меняется при повторной доставке одного Checkout Session ID.
 
-Порядок важен: Payment Link отключается только после того, как живой сайт ведёт на Ko-fi,
-иначе кнопка на `lavenderherbs.org/donate` сломается.
+## Налоги
+
+Как учитывать поддержку автономо (IRPF / IVA) — вопрос к gestor, не к Stripe.

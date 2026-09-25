@@ -114,24 +114,21 @@ Animated vertical bars (CSS `scaleY` + `rotate`, staggered per element). Hero: 6
 - Nav: `68px` height, fixed, transparent-to-glass on scroll
 - Grids: 3-col -> 2-col (1024px) -> 1-col (768px)
 
-## Support System (Ko-fi + Supabase)
+## Support System (Stripe + Supabase)
 
-Support page at `/donate` — "Grow the Lavender Field": voluntary tips via Ko-fi (`https://ko-fi.com/kotkoa`),
-every €1 adds one bush to the field counter, goal 10,000. Tips carry no rewards or obligations — keep the copy free
-of planting promises. Never call payments "loans" anywhere (Stripe prohibits lending services).
+Support page at `/donate` — "Grow the Lavender Field": voluntary support payments via Stripe Payment Link.
+Every €1 adds one bush to the public field counter, goal 10,000. Payments carry no rewards or obligations — keep the
+copy free of planting promises. Never call payments "loans" anywhere (Stripe prohibits lending services).
 
 ### Architecture
 
 ```
-"Tip on Ko-fi" button -> ko-fi.com/kotkoa (new tab)
-  -> Ko-fi webhook (form field `data`, JSON with verification_token)
-  -> Supabase Edge Function (kofi-webhook)
-  -> process_donation(ext_id, src, qty, cents, donor) RPC (atomic, idempotent)
+Stripe Payment Link -> Stripe Checkout
+  -> Stripe webhook (`checkout.session.completed` / async payment success)
+  -> Supabase Edge Function (stripe-webhook)
+  -> process_donation(ext_id, `stripe`, qty, cents, donor) RPC (atomic, idempotent)
   -> Supabase Realtime -> frontend updates field visualization
 ```
-
-`stripe-webhook` + the Stripe Payment Link are the previous path; they are removed after the Ko-fi path is live
-(see `PAYMENTS_PLAN.md`, step B5).
 
 ### Key files
 
@@ -141,31 +138,30 @@ website/
 ├── components/donate/
 │   ├── DonatePageClient.tsx                     # Client orchestrator
 │   ├── DonationField.tsx                        # Interactive field (50x20 grid, bush.png)
-│   ├── DonationControls.tsx                     # "Tip on Ko-fi" button
+│   ├── DonationControls.tsx                     # Stripe Payment Link CTA
 │   └── DonationProgress.tsx                     # Progress bar + stats
 ├── hooks/useDonationCount.ts                    # Supabase Realtime subscription
 ├── lib/supabase.ts                              # Lazy-initialized client (getSupabase())
-├── lib/support.ts                               # SUPPORT_URL (Ko-fi page)
+├── lib/stripe.ts                                # Stripe Payment Link accessor
 └── supabase/
-    ├── functions/kofi-webhook/index.ts          # Deno Edge Function (Ko-fi)
-    ├── functions/stripe-webhook/index.ts        # Deno Edge Function (legacy Stripe path)
-    └── migrations/                              # 001 schema + RPC, 002 Ko-fi source
+    ├── functions/stripe-webhook/index.ts        # Deno Edge Function (Stripe)
+    └── migrations/                              # 001 schema + RPC; 002/003 applied history
 ```
 
 ### External services
 
 - **Supabase project:** `uiixexvzjpjfuyoigmdf` (separate org, free plan — pauses when idle; restore via dashboard/MCP)
-- **Ko-fi:** `ko-fi.com/kotkoa`, Stripe account `acct_1UFxJlEbCLGxJE3e` ("Kotkoa Ko-fi")
-- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_KOFI_URL`
-- **Supabase secrets (CLI):** `KOFI_VERIFICATION_TOKEN` (+ legacy `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`)
+- **Stripe:** `Lavender Herbs – Site` (`acct_1TIrYIHVza3K996l`)
+- **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
+- **Supabase secrets:** `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
 
 ### Important notes
 
-- `lib/supabase.ts` uses lazy init (`getSupabase()`) — required for static export SSG build
-- Edge Functions deploy with `--no-verify-jwt` (webhooks carry no Supabase JWT)
-- Ko-fi counts only `Donation` and `Subscription` webhooks in EUR (the Ko-fi page receives EUR); bushes = whole euros,
-  minimum 1; non-EUR payments are acknowledged with 200 and not counted
+- `lib/supabase.ts` uses lazy init (`getSupabase()`) - required for static export SSG build
+- Edge Functions deploy with `--no-verify-jwt` (Stripe webhooks carry no Supabase JWT)
+- `stripe-webhook` counts only paid EUR Checkout Sessions and ignores duplicate deliveries by Checkout Session ID
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
+
 
 ## Conventions
 
