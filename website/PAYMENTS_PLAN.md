@@ -48,10 +48,14 @@
 1. **Квитанция (receipt).** Сейчас внизу: support site `https://ko-fi.com/kotkoa`, email `kotkoa@gmail.com`,
    телефон `+34 647 18 54 06`. Решение: email `support@lavenderherbs.org`, телефон убрать.
    Где: Stripe → Kotkoa Lavender → Settings → Business → Public details. Public details общие для сайта и Ko-fi.
-   - [ ] Почта `support@lavenderherbs.org`: домен переносится с DNS Namecheap на Cloudflare, Cloudflare Email Routing
-     пересылает на `kotkoa@gmail.com` (вместо текущей переадресации Namecheap).
-   - [ ] Gmail-фильтр: письма на `support@lavenderherbs.org` → ярлык.
-   - [ ] Support email в Stripe → `support@lavenderherbs.org` (после проверки, что почта доходит).
+   - [x] Почта `support@lavenderherbs.org` (2026-09-25): DNS домена перенесён с Namecheap на Cloudflare
+     (NS `chance`/`wren.ns.cloudflare.com`), Cloudflare Email Routing → `kotkoa+support_lavenderherbs@gmail.com`.
+     MX `route1–3.mx.cloudflare.net`, SPF `include:_spf.mx.cloudflare.net`, DKIM `cf2024-1._domainkey`.
+     Проверено письмом с `kotkoa@icloud.com`.
+   - [x] Gmail-фильтр `to:(support@lavenderherbs.org)` → ярлык «Lavender Herbs / Support», Never send it to Spam.
+   - [ ] Второй Gmail-фильтр исправить: `from:(kotkoa+support_lavenderherbs@gmail.com)` → `to:(…)`.
+   - [x] Support email в Stripe → `support@lavenderherbs.org`; Business website → `https://lavenderherbs.org`.
+   - [ ] Customer support URL в Stripe: всё ещё `https://ko-fi.com/kotkoa` → `https://lavenderherbs.org`.
    - [ ] Support phone — удалить (если Stripe не даст сохранить пустым, значит поле обязательно для аккаунта).
 2. [x] **Переименование.** Account name «Kotkoa Ko-fi» → «Kotkoa Lavender» (2026-09-25). Внутреннее имя;
    публичное имя в квитанции («Receipt from Kotkoa») не менялось.
