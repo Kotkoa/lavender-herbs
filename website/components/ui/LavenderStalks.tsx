@@ -1,4 +1,4 @@
-'use client'
+
 
 interface LavenderStalksProps {
   n?: number

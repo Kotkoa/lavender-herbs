@@ -62,20 +62,7 @@
   transform: translateY(0);
 }
 
-@keyframes bushGrow {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.15);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
+
 
 @keyframes bushSway {
   0%, 100% {
@@ -86,10 +73,10 @@
   }
 }
 
-.animate-bush-grow { animation: bushGrow 0.6s var(--ease-out) both; }
+
 .animate-bush-sway { animation: bushSway 3s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-bush-grow { animation: none; opacity: 1; transform: none; }
+  
   .animate-bush-sway { animation: none; transform: none; }
 }

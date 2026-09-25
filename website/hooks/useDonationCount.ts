@@ -8,45 +8,43 @@ interface DonationStats {
 }
 
 export function useDonationCount(): DonationStats {
-  const [totalBushes, setTotalBushes] = useState(0)
-  const [totalDonors, setTotalDonors] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
+  const [stats, setStats] = useState<DonationStats>({ totalBushes: 0, totalDonors: 0, isLoading: true })
 
   useEffect(() => {
+    const supabase = getSupabase()
+    let mounted = true
+
     async function fetchStats() {
-      const { data } = await getSupabase()
+      const { data } = await supabase
         .from('donation_stats')
         .select('total_bushes, total_donors')
         .eq('id', 1)
         .single()
 
-      if (data) {
-        setTotalBushes(data.total_bushes)
-        setTotalDonors(data.total_donors)
+      if (mounted) {
+        setStats({
+          totalBushes: data?.total_bushes ?? 0,
+          totalDonors: data?.total_donors ?? 0,
+          isLoading: false,
+        })
       }
-      setIsLoading(false)
     }
 
     fetchStats()
-
-    const supabaseClient = getSupabase()
-    const channel = supabaseClient
+    const channel = supabase
       .channel('donation_stats_changes')
-      .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'donation_stats' },
-        (payload) => {
-          const updated = payload.new as { total_bushes: number; total_donors: number }
-          setTotalBushes(updated.total_bushes)
-          setTotalDonors(updated.total_donors)
-        },
-      )
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'donation_stats' }, ({ new: updated }) => {
+        if (!mounted) return
+        const { total_bushes: totalBushes, total_donors: totalDonors } = updated as { total_bushes: number; total_donors: number }
+        setStats({ totalBushes, totalDonors, isLoading: false })
+      })
       .subscribe()
 
     return () => {
-      supabaseClient.removeChannel(channel)
+      mounted = false
+      void supabase.removeChannel(channel)
     }
   }, [])
 
-  return { totalBushes, totalDonors, isLoading }
+  return stats
 }

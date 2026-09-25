@@ -9,7 +9,7 @@ import math
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Optional
+from typing import Optional
 
 
 NBSP = "\u00a0"
@@ -39,12 +39,7 @@ def parse_rub(s: str) -> Optional[float]:
     return parse_ru_number(s)
 
 
-def parse_percent(s: str) -> Optional[float]:
-    s = s.strip()
-    if "%" not in s:
-        return parse_ru_number(s)
-    n = parse_ru_number(s)
-    return n
+
 
 
 @dataclass(frozen=True)

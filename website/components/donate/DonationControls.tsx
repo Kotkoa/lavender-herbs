@@ -1,9 +1,7 @@
 import Button from '@/components/ui/Button'
-import { getCheckoutUrl } from '@/lib/stripe'
+import { CHECKOUT_URL } from '@/lib/stripe'
 
 export default function DonationControls() {
-  const checkoutUrl = getCheckoutUrl()
-
   return (
     <div className="flex flex-col items-center gap-6">
       <p className="text-center text-muted-light max-w-md leading-relaxed">
@@ -11,8 +9,8 @@ export default function DonationControls() {
         one bush to the public field counter.
       </p>
 
-      {checkoutUrl && (
-        <Button variant="solid" href={checkoutUrl} className="text-lg px-10 py-4">
+      {CHECKOUT_URL && (
+        <Button variant="solid" href={CHECKOUT_URL} className="text-lg px-10 py-4">
           Support with Stripe
         </Button>
       )}
