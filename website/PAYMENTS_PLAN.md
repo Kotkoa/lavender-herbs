@@ -41,6 +41,28 @@
 - [x] Live-платёж €1 (2026-09-25): Stripe → webhook `200`, запись `source = 'stripe'`, qty 1, 100 центов;
       счётчик 0 → 1 куст, 1 донор; редирект на `/donate` работает.
 
+## Часть C. Задачи (записано 2026-09-25)
+
+1. **Квитанция (receipt).** Сейчас внизу: support site `https://ko-fi.com/kotkoa`, email `kotkoa@gmail.com`,
+   телефон `+34 647 18 54 06`. Нужно сменить email и убрать телефон.
+   Где: Stripe → Kotkoa Ko-fi → Settings → Business → Public details (support email / phone / website).
+   - [ ] Новый support email — **нужно от вас**.
+   - [ ] Support phone — удалить (если Stripe не даст сохранить пустым, значит поле обязательно для аккаунта).
+   - [ ] Support site: оставить `ko-fi.com/kotkoa` или сменить на `https://lavenderherbs.org` — решение ваше.
+     Public details общие для сайта и Ko-fi.
+2. **Переименование.** Account name «Kotkoa Ko-fi» → «Kotkoa Lavender»
+   (Settings → Business → Account details). Внутреннее имя, покупатель его не видит.
+   - [ ] Уточнить: менять ли и публичное имя «Kotkoa» в квитанции («Receipt from Kotkoa»).
+3. **Комиссия.** Тестовый платёж €1: комиссия Stripe €0.28, на руки €0.72.
+   Тариф Stripe Spain для стандартных карт EEA — 1,5 % + €0,25 (https://stripe.com/es/pricing), основную часть даёт
+   фиксированные €0,25 с каждого платежа. Доля комиссии: €1 ≈ 27 %, €5 ≈ 6,5 %, €10 ≈ 4 %, €20 ≈ 2,75 %.
+   - [ ] Вариант A (без кода): в Payment Link поставить количество по умолчанию 5 и минимум 3–5 кустов.
+     Webhook считает по quantity, код менять не нужно.
+   - [ ] Вариант B (с кодом): тип Payment Link «Customers choose what to pay» с подсказкой €10 и минимумом €3;
+     webhook считает кусты как `floor(сумма в EUR)`.
+   - [ ] Текст на `/donate`: подсказать, что крупные разовые платежи эффективнее мелких.
+   - Не помогает: Ko-fi (те же тарифы Stripe), SEPA Direct Debit (фиксированная часть больше).
+
 ## База и безопасность
 
 Исторические миграции `002_kofi_source.sql` и `003_cleanup_kofi_webhook_test.sql` остаются в репозитории как уже применённая история.
