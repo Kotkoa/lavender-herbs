@@ -160,8 +160,9 @@ website/
 
 - `lib/supabase.ts` uses lazy init (`getSupabase()`) - required for static export SSG build
 - Edge Functions deploy with `--no-verify-jwt` (Stripe webhooks carry no Supabase JWT)
-- `stripe-webhook` counts only paid Checkout Sessions priced in EUR (Adaptive Pricing: uses `currency_conversion`
-  source currency/amount) and ignores duplicate deliveries by Checkout Session ID
+- `stripe-webhook` counts only paid Checkout Sessions of the site Payment Link (`SITE_PAYMENT_LINK` constant — the
+  account also receives Ko-fi payments) priced in EUR (Adaptive Pricing: uses `currency_conversion` source
+  currency/amount) and ignores duplicate deliveries by Checkout Session ID
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
 
 

@@ -19,15 +19,15 @@
   `https://uiixexvzjpjfuyoigmdf.supabase.co/functions/v1/stripe-webhook`,
   события `checkout.session.completed`, `checkout.session.async_payment_succeeded`.
 - Adaptive Pricing включён: покупатель может платить в своей валюте; webhook считает по исходной EUR-цене.
+- Webhook засчитывает только сессии Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly` (константа `SITE_PAYMENT_LINK`
+  в `stripe-webhook`): аккаунт общий с Ko-fi. При замене Payment Link обновить константу и передеплоить функцию.
 
-## Часть A. Ручные шаги
+## Часть A. Настройка секретов (выполнено 2026-09-25)
 
-1. Stripe → Kotkoa Ko-fi → Developers → API keys → **Create restricted key**, права: Checkout Sessions — Read.
-   Значение → Supabase secret `STRIPE_SECRET_KEY`.
-2. Stripe → Workbench → Webhooks → `lavenderherbs-supabase` → Signing secret → Reveal.
-   Значение → Supabase secret `STRIPE_WEBHOOK_SECRET`.
-3. Секреты не коммитить и не помещать в GitHub Variables.
-4. Провести один платёж €1 через сайт и подтвердить его агенту.
+- [x] Restricted key (Stripe → Kotkoa Ko-fi → Developers → API keys), права: Checkout Sessions — Read
+      → Supabase secret `STRIPE_SECRET_KEY`.
+- [x] Signing secret (Workbench → Webhooks → `lavenderherbs-supabase`) → Supabase secret `STRIPE_WEBHOOK_SECRET`.
+- Секреты не коммитить и не помещать в GitHub Variables.
 
 ## Часть B. Реализация
 

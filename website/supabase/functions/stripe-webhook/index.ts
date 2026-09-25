@@ -19,6 +19,9 @@ const COUNTED_EVENTS = new Set([
   'checkout.session.async_payment_succeeded',
 ])
 
+// The Stripe account also receives Ko-fi payments; only sessions from the site's Payment Link count.
+const SITE_PAYMENT_LINK = 'plink_1UJYUEEbCLGxJE3eJWIniNly'
+
 function response(body: Record<string, boolean>, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -52,10 +55,11 @@ Deno.serve(async (request) => {
   }
 
   const session = event.data.object as Stripe.Checkout.Session
+  const paymentLink = typeof session.payment_link === 'string' ? session.payment_link : session.payment_link?.id
   // With Adaptive Pricing the customer may pay in a local currency; the price itself stays in EUR.
   const conversion = session.currency_conversion
   const currency = conversion?.source_currency ?? session.currency
-  if (session.payment_status !== 'paid' || currency !== 'eur') {
+  if (paymentLink !== SITE_PAYMENT_LINK || session.payment_status !== 'paid' || currency !== 'eur') {
     return response({ received: true, counted: false })
   }
 
