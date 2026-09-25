@@ -37,8 +37,9 @@
       (с учётом Adaptive Pricing), обрабатывает delayed-payment success и идемпотентно вызывает RPC с `source = 'stripe'`.
 - [x] GitHub Actions передаёт только публичные переменные Supabase и Payment Link.
 - [x] Payment Link и webhook endpoint созданы в Kotkoa Ko-fi; GitHub Variable указывает на новый Payment Link.
-- [ ] Supabase secrets `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` установлены (вы).
-- [ ] Тестовый платёж доставлен в Supabase и увеличил счётчик ровно один раз.
+- [x] Supabase secrets `STRIPE_SECRET_KEY` (restricted, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET` установлены.
+- [x] Live-платёж €1 (2026-09-25): Stripe → webhook `200`, запись `source = 'stripe'`, qty 1, 100 центов;
+      счётчик 0 → 1 куст, 1 донор; редирект на `/donate` работает.
 
 ## База и безопасность
 
