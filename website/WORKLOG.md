@@ -7,6 +7,9 @@
 - Delivery is retry-safe: `donations.thank_you_sent_at` (migration `005_thank_you_email`) plus a Resend
   `Idempotency-Key`; a Resend failure returns `500` so Stripe retries.
 - Wallpapers in `public/wallpapers/`: desktop 5120×3413 and phone 1920×2880 JPEGs, EXIF stripped.
+- Review fix (v9): only transient Resend failures (429, 5xx, 409 `concurrent_idempotent_requests`) return `500`;
+  permanent 4xx are logged by error name (no recipient in logs) and acknowledged, so Stripe never disables the
+  endpoint over email problems. Resend domain verified; docs checklist updated.
 
 ## 2026-09-25 — Restore direct Stripe Checkout
 

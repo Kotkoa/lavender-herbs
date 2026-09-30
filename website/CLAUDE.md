@@ -117,8 +117,9 @@ Animated vertical bars (CSS `scaleY` + `rotate`, staggered per element). Hero: 6
 ## Support System (Stripe + Supabase)
 
 Support page at `/donate` — "Grow the Lavender Field": voluntary support payments via Stripe Payment Link.
-Every €1 adds one bush to the public field counter, goal 10,000. Payments carry no rewards or obligations — keep the
-copy free of planting promises. Never call payments "loans" anywhere (Stripe prohibits lending services).
+Every €1 adds one bush to the public field counter, goal 10,000. Payments carry no obligations; the only thank-you is a
+free wallpaper email, not something the payment buys — keep the copy free of planting promises. Never call payments
+"loans" anywhere (Stripe prohibits lending services).
 
 ### Architecture
 
@@ -162,7 +163,7 @@ website/
   webhook `we_1UJYVqEbCLGxJE3eQLZRRwY5`; the same account also receives Ko-fi payouts
 - **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
 - **Supabase secrets:** `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET`,
-  `RESEND_API_KEY` (sends from `support@lavenderherbs.org`; domain verified in Resend)
+  `RESEND_API_KEY` (sends from `support@lavenderherbs.org`; domain verified in Resend 2026-09-30)
 
 ### Important notes
 
@@ -172,9 +173,11 @@ website/
   account also receives Ko-fi payments) priced in EUR (Adaptive Pricing: uses `currency_conversion` source
   currency/amount) and ignores duplicate deliveries by Checkout Session ID
 - Payer names stay in Stripe only: the webhook stores `donor_name = null`
-- Thank-you email: sent after the counter update; a Resend failure returns `500` so Stripe retries. Copy thanks and
-  says support helps prepare the land — no planting promises. Wallpaper `size` strings in `thank-you-email.ts` must
-  match the files in `public/wallpapers/`
+- Thank-you email: sent after the counter update. Transient Resend failures (429, 5xx, 409
+  `concurrent_idempotent_requests`) return `500` so Stripe retries; permanent 4xx are logged and acknowledged with
+  `200`, leaving `thank_you_sent_at` NULL, so a Resend problem never gets the endpoint disabled. Copy thanks and says
+  support helps prepare the land — no planting promises. Wallpaper `size` strings in `thank-you-email.ts` must match
+  the files in `public/wallpapers/`
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
 
 

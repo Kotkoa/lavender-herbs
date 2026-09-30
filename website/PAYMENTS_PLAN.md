@@ -71,18 +71,22 @@
    обещаний посадки, число кустов в счётчике и две обои из `public/wallpapers/`: превью, название, JPG, разрешение,
    размер, имя файла и ссылка на скачивание.
    Надёжность: сначала счётчик, затем письмо; `donations.thank_you_sent_at` ставится после ответа Resend 2xx.
-   Ошибка Resend → webhook `500` → Stripe повторяет доставку до 3 дней, счётчик повтор не удваивает; письмо не
-   дублируется (отметка + `Idempotency-Key: thank-you/<session id>`).
+   Временная ошибка Resend (429, 5xx, 409 `concurrent_idempotent_requests`) → webhook `500` → Stripe повторяет
+   доставку до 3 дней, счётчик повтор не удваивает; письмо не дублируется (отметка + `Idempotency-Key:
+   thank-you/<session id>`). Постоянная ошибка 4xx (неверный адрес, ключ, домен) → в логе `Failed to send thank-you
+   email`, webhook отвечает `200`, письмо не уходит: иначе Stripe отключил бы endpoint и счётчик встал бы.
    - [x] Обои: `lavender-field-desktop-5120x3413.jpg` (1.3 MB), `lavender-field-phone-1920x2880.jpg` (453 KB) и превью;
      EXIF удалён. При замене файла обновить `size` в `thank-you-email.ts`.
    - [x] Миграция `005_thank_you_email` применена (колонка `thank_you_sent_at`).
-   - [ ] Задеплоить сайт (push в `main`), чтобы ссылки `https://lavenderherbs.org/wallpapers/…` работали.
-   - [ ] Resend: аккаунт → Domains → `lavenderherbs.org` (регион EU) → DNS-записи Resend (DKIM `resend._domainkey`,
-     MX и SPF на `send`) добавить в Cloudflare как DNS only → Verify. Корневые MX/SPF Email Routing не трогать.
-   - [ ] Resend API key (Sending access, домен `lavenderherbs.org`) → `supabase secrets set RESEND_API_KEY=… --project-ref uiixexvzjpjfuyoigmdf`.
-   - [ ] Только после секрета: `supabase functions deploy stripe-webhook --no-verify-jwt --project-ref uiixexvzjpjfuyoigmdf`
-     (без `RESEND_API_KEY` функция не стартует и счётчик перестанет обновляться).
-   - [ ] Проверка: платёж €2 → письмо пришло, `thank_you_sent_at` заполнен, ссылки скачиваются.
+   - [x] Сайт задеплоен (2026-09-30): `https://lavenderherbs.org/wallpapers/…` отвечают `200`.
+   - [x] Resend: домен `lavenderherbs.org` подтверждён (2026-09-30); DKIM `resend._domainkey`, MX и SPF на `send`
+     в Cloudflare. Корневые MX/SPF Email Routing не трогать.
+   - [x] Секрет `RESEND_API_KEY` в Supabase (2026-09-30). Без него функция не стартует и счётчик не обновляется.
+   - [x] `stripe-webhook` задеплоен (2026-09-30). Команда для повторного деплоя:
+     `supabase functions deploy stripe-webhook --no-verify-jwt --project-ref uiixexvzjpjfuyoigmdf`.
+   - [ ] Проверка: платёж €2 (или Resend старого события в Stripe Workbench) → письмо пришло, `thank_you_sent_at`
+     заполнен, ссылки скачиваются.
+   - [ ] DMARC: TXT `_dmarc` = `v=DMARC1; p=none; rua=mailto:support@lavenderherbs.org` в Cloudflare.
 
 ## База и безопасность
 

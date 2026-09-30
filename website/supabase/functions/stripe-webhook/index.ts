@@ -125,18 +125,24 @@ Deno.serve(async (request) => {
           }),
         })
         if (!sent.ok) {
-          // A non-2xx response makes Stripe retry the webhook; the counter is already idempotent.
-          console.error('Failed to send thank-you email:', sent.status, await sent.text())
-          return new Response('Email sending failed', { status: 500 })
-        }
-
-        const { error: updateError } = await supabase
-          .from('donations')
-          .update({ thank_you_sent_at: new Date().toISOString() })
-          .eq('external_id', session.id)
-        if (updateError) {
-          console.error('Failed to record thank-you email:', updateError)
-          return new Response('Database error', { status: 500 })
+          // Log only the Resend error name: validation messages may echo the recipient address.
+          const { name } = await sent.json().catch(() => ({})) as { name?: string }
+          console.error('Failed to send thank-you email:', sent.status, name)
+          // Retry (500) only transient failures. A permanent 4xx (bad recipient, key or domain problem) would fail
+          // every delivery until Stripe disables the endpoint and the counter stops; the counter is already saved.
+          if (sent.status === 429 || sent.status >= 500 ||
+            (sent.status === 409 && name === 'concurrent_idempotent_requests')) {
+            return new Response('Email sending failed', { status: 500 })
+          }
+        } else {
+          const { error: updateError } = await supabase
+            .from('donations')
+            .update({ thank_you_sent_at: new Date().toISOString() })
+            .eq('external_id', session.id)
+          if (updateError) {
+            console.error('Failed to record thank-you email:', updateError)
+            return new Response('Database error', { status: 500 })
+          }
         }
       }
     }
