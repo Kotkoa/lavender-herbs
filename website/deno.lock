@@ -1,0 +1,29 @@
+{
+  "version": "5",
+  "redirects": {
+    "https://esm.sh/@supabase/supabase-js@2": "https://esm.sh/@supabase/supabase-js@2.117.1"
+  },
+  "remote": {
+    "https://esm.sh/@supabase/supabase-js@2.117.1": "99cf17d2470bce11943555fed60fe54cdd642799103df031ace8071b97b5cf78",
+    "https://esm.sh/stripe@22.6.2?target=deno": "3da406c9c3d9f3df8e2ab08b281e2a0f7e5aa0bd869bffe695e80e3c961c9e62"
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@supabase/supabase-js@^2.101.1",
+        "npm:@tailwindcss/postcss@4",
+        "npm:@types/node@20",
+        "npm:@types/react-dom@19",
+        "npm:@types/react@19",
+        "npm:babel-plugin-react-compiler@1.0.0",
+        "npm:eslint-config-next@16.1.6",
+        "npm:eslint@9",
+        "npm:next@16.1.6",
+        "npm:react-dom@19.2.3",
+        "npm:react@19.2.3",
+        "npm:tailwindcss@4",
+        "npm:typescript@5"
+      ]
+    }
+  }
+}

@@ -66,6 +66,23 @@
    - Не помогает: Ko-fi (те же тарифы Stripe), SEPA Direct Debit (фиксированная часть больше).
 4. [x] **Имена плательщиков только в Stripe.** Webhook передаёт `donor = null`; миграция `004_clear_donor_names`
    очистила сохранённые имена (2026-09-25).
+5. **Благодарственное письмо с обоями** (2026-09-30). После оплаты `stripe-webhook` отправляет донору письмо через
+   Resend (`support@lavenderherbs.org`, ответы приходят в support) на email из Checkout. В письме — благодарность без
+   обещаний посадки, число кустов в счётчике и две обои из `public/wallpapers/`: превью, название, JPG, разрешение,
+   размер, имя файла и ссылка на скачивание.
+   Надёжность: сначала счётчик, затем письмо; `donations.thank_you_sent_at` ставится после ответа Resend 2xx.
+   Ошибка Resend → webhook `500` → Stripe повторяет доставку до 3 дней, счётчик повтор не удваивает; письмо не
+   дублируется (отметка + `Idempotency-Key: thank-you/<session id>`).
+   - [x] Обои: `lavender-field-desktop-5120x3413.jpg` (1.3 MB), `lavender-field-phone-1920x2880.jpg` (453 KB) и превью;
+     EXIF удалён. При замене файла обновить `size` в `thank-you-email.ts`.
+   - [x] Миграция `005_thank_you_email` применена (колонка `thank_you_sent_at`).
+   - [ ] Задеплоить сайт (push в `main`), чтобы ссылки `https://lavenderherbs.org/wallpapers/…` работали.
+   - [ ] Resend: аккаунт → Domains → `lavenderherbs.org` (регион EU) → DNS-записи Resend (DKIM `resend._domainkey`,
+     MX и SPF на `send`) добавить в Cloudflare как DNS only → Verify. Корневые MX/SPF Email Routing не трогать.
+   - [ ] Resend API key (Sending access, домен `lavenderherbs.org`) → `supabase secrets set RESEND_API_KEY=… --project-ref uiixexvzjpjfuyoigmdf`.
+   - [ ] Только после секрета: `supabase functions deploy stripe-webhook --no-verify-jwt --project-ref uiixexvzjpjfuyoigmdf`
+     (без `RESEND_API_KEY` функция не стартует и счётчик перестанет обновляться).
+   - [ ] Проверка: платёж €2 → письмо пришло, `thank_you_sent_at` заполнен, ссылки скачиваются.
 
 ## База и безопасность
 

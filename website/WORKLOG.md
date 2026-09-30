@@ -1,5 +1,13 @@
 # Donation Page — Work Log
 
+## 2026-09-30 — Thank-you email with wallpapers
+
+- `stripe-webhook` sends a Resend thank-you email to the Checkout email after the counter update
+  (`thank-you-email.ts`: site tonal palette, two wallpapers with preview, format, resolution, size, file name, link).
+- Delivery is retry-safe: `donations.thank_you_sent_at` (migration `005_thank_you_email`) plus a Resend
+  `Idempotency-Key`; a Resend failure returns `500` so Stripe retries.
+- Wallpapers in `public/wallpapers/`: desktop 5120×3413 and phone 1920×2880 JPEGs, EXIF stripped.
+
 ## 2026-09-25 — Restore direct Stripe Checkout
 
 - Replaced the active Ko-fi path with a Stripe Payment Link CTA and restored `stripe-webhook`.

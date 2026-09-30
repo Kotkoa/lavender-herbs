@@ -127,6 +127,7 @@ Stripe Payment Link -> Stripe Checkout
   -> Stripe webhook (`checkout.session.completed` / async payment success)
   -> Supabase Edge Function (stripe-webhook)
   -> process_donation(ext_id, `stripe`, qty, cents, donor) RPC (atomic, idempotent)
+  -> Resend thank-you email with wallpaper links (once per session: `donations.thank_you_sent_at`)
   -> Supabase Realtime -> frontend updates field visualization
 ```
 
@@ -143,9 +144,12 @@ website/
 ├── hooks/useDonationCount.ts                    # Supabase Realtime subscription
 ├── lib/supabase.ts                              # Lazy-initialized client (getSupabase())
 ├── lib/stripe.ts                                # Stripe Payment Link accessor
+├── public/wallpapers/                           # Thank-you wallpapers + email previews
 └── supabase/
     ├── functions/stripe-webhook/index.ts        # Deno Edge Function (Stripe)
-    └── migrations/                              # 001 schema + RPC; 002/003 applied history; 004 donor names cleared
+    ├── functions/stripe-webhook/thank-you-email.ts # Thank-you email HTML/text
+    └── migrations/                              # 001 schema + RPC; 002/003 applied history; 004 donor names cleared;
+                                                 # 005 thank_you_sent_at
 ```
 
 ### External services
@@ -157,7 +161,8 @@ website/
 - **Stripe:** `Kotkoa Lavender` (`acct_1UFxJlEbCLGxJE3e`) — Payment Link `plink_1UJYUEEbCLGxJE3eJWIniNly`,
   webhook `we_1UJYVqEbCLGxJE3eQLZRRwY5`; the same account also receives Ko-fi payouts
 - **GitHub Variables:** `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_STRIPE_PAYMENT_LINK`
-- **Supabase secrets:** `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET`
+- **Supabase secrets:** `STRIPE_SECRET_KEY` (restricted key, Checkout Sessions read), `STRIPE_WEBHOOK_SECRET`,
+  `RESEND_API_KEY` (sends from `support@lavenderherbs.org`; domain verified in Resend)
 
 ### Important notes
 
@@ -167,6 +172,9 @@ website/
   account also receives Ko-fi payments) priced in EUR (Adaptive Pricing: uses `currency_conversion` source
   currency/amount) and ignores duplicate deliveries by Checkout Session ID
 - Payer names stay in Stripe only: the webhook stores `donor_name = null`
+- Thank-you email: sent after the counter update; a Resend failure returns `500` so Stripe retries. Copy thanks and
+  says support helps prepare the land — no planting promises. Wallpaper `size` strings in `thank-you-email.ts` must
+  match the files in `public/wallpapers/`
 - `supabase/` excluded from tsconfig (Deno runtime, different types)
 
 

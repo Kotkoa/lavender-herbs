@@ -1,10 +1,12 @@
 import Stripe from 'https://esm.sh/stripe@22.6.2?target=deno'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { renderThankYouEmail } from './thank-you-email.ts'
 
 const stripeSecretKey = Deno.env.get('STRIPE_SECRET_KEY')
 const webhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET')
+const resendApiKey = Deno.env.get('RESEND_API_KEY')
 
-if (!stripeSecretKey || !webhookSecret) {
+if (!stripeSecretKey || !webhookSecret || !resendApiKey) {
   throw new Error('Stripe webhook secrets are not configured')
 }
 
@@ -90,6 +92,53 @@ Deno.serve(async (request) => {
 
     if (!inserted) {
       console.log('Duplicate Stripe webhook:', session.id)
+    }
+
+    const email = session.customer_details?.email
+    if (email) {
+      const { data: donation, error: selectError } = await supabase
+        .from('donations')
+        .select('thank_you_sent_at')
+        .eq('external_id', session.id)
+        .single()
+      if (selectError) {
+        console.error('Failed to read thank-you status:', selectError)
+        return new Response('Database error', { status: 500 })
+      }
+
+      if (!donation.thank_you_sent_at) {
+        const { subject, html, text } = renderThankYouEmail({ name: session.customer_details?.name, bushes: quantity })
+        const sent = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json',
+            // Concurrent or post-crash retries of the same session send one email.
+            'Idempotency-Key': `thank-you/${session.id}`,
+          },
+          body: JSON.stringify({
+            from: 'Lavender Herbs <support@lavenderherbs.org>',
+            to: [email],
+            subject,
+            html,
+            text,
+          }),
+        })
+        if (!sent.ok) {
+          // A non-2xx response makes Stripe retry the webhook; the counter is already idempotent.
+          console.error('Failed to send thank-you email:', sent.status, await sent.text())
+          return new Response('Email sending failed', { status: 500 })
+        }
+
+        const { error: updateError } = await supabase
+          .from('donations')
+          .update({ thank_you_sent_at: new Date().toISOString() })
+          .eq('external_id', session.id)
+        if (updateError) {
+          console.error('Failed to record thank-you email:', updateError)
+          return new Response('Database error', { status: 500 })
+        }
+      }
     }
   } catch (error) {
     console.error('Failed to process Stripe webhook:', error)
